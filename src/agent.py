@@ -21,6 +21,7 @@ class Agent(object):
 
     #def flush(self):
     #def forage(self, reduced):
+    #def humanInAlertDistance(self)
     #def chickAtNest(self):
     #def rest(self):
     #def findNearestNest():
