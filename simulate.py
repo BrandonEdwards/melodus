@@ -1,3 +1,10 @@
+#!C:\Users\Brandon\AppData\Local\Programs\Python\Python36-32\python.exe
+
+import numpy as np
+
+input = np.loadtxt("maps/test.csv")
+print(input)
+
 '''
 from src.agent import Agent
 
