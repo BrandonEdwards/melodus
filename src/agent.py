@@ -15,7 +15,7 @@ class Agent(object):
     def isHumanPresence(self):
         return humanPresence
 
-    def attemptNest(self):
+    #def attemptNest(self):
         #If probability pulled from a distribution is above a certain threshold,
         #create a new nest
 
@@ -24,4 +24,4 @@ class Agent(object):
     #def humanInAlertDistance(self)
     #def chickAtNest(self):
     #def rest(self):
-    #def findNearestNest():
+    #def findNearestNest(self):
