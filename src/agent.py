@@ -1,4 +1,5 @@
 from .nest import Nest
+import numpy as np
 
 class Agent(object):
     habitatType = 0
@@ -7,6 +8,16 @@ class Agent(object):
     nestInfo = None
     chickWeight = list()
     closestNest = 0
+
+    def createAgentDB():
+        map = np.genfromtxt('maps/test.csv', delimiter=",")
+        agents = list()
+
+        for i in map:
+            for j in i:
+                agents.append(Agent(j))
+
+        return agents
 
     def __init__(self, habitatType):
         self.habitatType = habitatType

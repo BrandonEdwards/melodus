@@ -3,10 +3,16 @@
 import numpy as np
 from src.agent import Agent
 
+
+agents = Agent.createAgentDB()
+
+for i in agents:
+    print(i.habitatType)
 '''
 Read in maps
-'''
 
+
+#Probably combine this into a function or something
 map = np.genfromtxt('maps/test.csv', delimiter=",")
 agents = list()
 
@@ -16,7 +22,7 @@ for i in map:
 
 for i in agents:
     print(i.habitatType)
-
+'''
 
 '''
 from src.agent import Agent
