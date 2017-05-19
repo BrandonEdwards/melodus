@@ -1,12 +1,22 @@
 #!/usr/bin/python3
 
 import numpy as np
+from src.agent import Agent
 
 '''
 Read in maps
-input = np.loadtxt(open("maps/test.csv", "rb"), delimiter = ",")
-
 '''
+
+map = np.genfromtxt('maps/test.csv', delimiter=",")
+agents = list()
+
+for i in map:
+    for j in i:
+        agents.append(Agent(j))
+
+for i in agents:
+    print(i.habitatType)
+
 
 '''
 from src.agent import Agent
