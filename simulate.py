@@ -1,9 +1,12 @@
-#!C:\Users\Brandon\AppData\Local\Programs\Python\Python36-32\python.exe
+#!/usr/bin/python3
 
 import numpy as np
 
-input = np.loadtxt("maps/test.csv")
-print(input)
+'''
+Read in maps
+input = np.loadtxt(open("maps/test.csv", "rb"), delimiter = ",")
+
+'''
 
 '''
 from src.agent import Agent
