@@ -9,8 +9,11 @@ class Agent(object):
     chickWeight = list()
     closestNest = 0
 
-    def createAgentDB():
-        map = np.genfromtxt('maps/test.csv', delimiter=",")
+    def __init__(self, habitatType):
+        self.habitatType = habitatType
+
+    def createAgentDB(mapName):
+        map = np.genfromtxt(mapName, delimiter=",")
         agents = list()
 
         for i in map:
@@ -19,20 +22,42 @@ class Agent(object):
 
         return agents
 
-    def __init__(self, habitatType):
-        self.habitatType = habitatType
-        self.nestInfo = Nest(4)
+    def attemptNest(self):
+        #If probability pulled from a distribution is above a certain threshold,
+        #create a new nest
+
+        #Return 1 on success, 0 on failure
+        return 1
+
+    def isNest(self):
+        if self.nestInfo == None:
+            return False
+        else:
+            return true
+
+    def layEgg(self):
+        pass
 
     def isHumanPresence(self):
         return humanPresence
 
-    #def attemptNest(self):
-        #If probability pulled from a distribution is above a certain threshold,
-        #create a new nest
+    def flush(self):
+        pass
 
-    #def flush(self):
-    #def forage(self, reduced):
-    #def humanInAlertDistance(self)
-    #def chickAtNest(self):
-    #def rest(self):
-    #def findNearestNest(self):
+    def forage(self, reduced):
+        pass
+
+    def humanInAlertDistance(self):
+        pass
+
+    def chickAtNest(self):
+        if nestInfo == None and len(chickWeight) > 0:
+            return False
+        else:
+            return True
+
+    def rest(self):
+        pass
+
+    def findNearestNest(self):
+        pass
