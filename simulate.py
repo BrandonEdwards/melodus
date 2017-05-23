@@ -4,23 +4,17 @@ import numpy as np
 import sys
 from src.agent import Agent
 
-#nestMakingTime::Boolean
-#availableNests::Int
-#currentTime::Int
-#breedingTime::Boolean
-#foragingTime::Boolean
-
 agents = Agent.createAgentDB(str(sys.argv[1]))
 
+#Agent natural mortality by habitat type and stage
+
+#Change these later
 nestMakingTime = True
 availableNests = 5
 currentTime = 0
 breedingTime = True
 foragingTime = True
-'''
-for agent in agents:
-    print(agent.habitatType)
-'''
+
 for time in range(1,100):
     for agent in agents:
         if nestMakingTime == True and availableNests > 0:
@@ -34,9 +28,9 @@ for time in range(1,100):
                 continue
             if foragingTime == True:
                 if agent.humanInAlertDistance() == True:
-                    agent.forage(True)
+                    agent.forage(True) #Reduced foraging = True
                 else:
-                    agent.forage(False)
+                    agent.forage(False) #Reduced foraging = False
             else:
                 if agent.chickAtNest() == True:
                     agent.rest()
