@@ -1,62 +1,46 @@
 #!/usr/bin/python3
 
 import numpy as np
+import sys
 from src.agent import Agent
 
+#nestMakingTime::Boolean
+#availableNests::Int
+#currentTime::Int
+#breedingTime::Boolean
+#foragingTime::Boolean
 
-agents = Agent.createAgentDB()
+agents = Agent.createAgentDB(str(sys.argv[1]))
 
-for i in agents:
-    print(i.habitatType)
+nestMakingTime = True
+availableNests = 5
+currentTime = 0
+breedingTime = True
+foragingTime = True
 '''
-Read in maps
-
-
-#Probably combine this into a function or something
-map = np.genfromtxt('maps/test.csv', delimiter=",")
-agents = list()
-
-for i in map:
-    for j in i:
-        agents.append(Agent(j))
-
-for i in agents:
-    print(i.habitatType)
+for agent in agents:
+    print(agent.habitatType)
 '''
-
-'''
-from src.agent import Agent
-
-nestMakingTime::Boolean
-availableNests::Int
-currentTime::Int
-breedingTime::Boolean
-foragingTime::Boolean
-
-Initiate enviroAgents
-
-for i in timeFrames:
-    for j in enviroAgents
-        if nestMakingTime == true && availableNests > 0
-            agent.attemptNest()
-        elif breedTime == true
-            if agent.isNest()
+for i in range(1,100):
+    for agent in agents:
+        if nestMakingTime == True and availableNests > 0:
+            availableNests = availableNests - agent.attemptNest()
+        elif breedingTime == True:
+            if agent.isNest():
                 agent.layEgg()
-        else
-            if agent.isHumanPresence()
-                agent.flush(); nextAgentCell
-            if foragingTime == true
-                if agent.humanInAlertDistance() == true
-                    agent.forage(true)
-                else
-                    agent.forage(false)
-            else
-                if agent.chickAtNest() == true
+        else:
+            if agent.isHumanPresence():
+                agent.flush();
+                continue
+            if foragingTime == True:
+                if agent.humanInAlertDistance() == True:
+                    agent.forage(True)
+                else:
+                    agent.forage(False)
+            else:
+                if agent.chickAtNest() == True:
                     agent.rest()
-                else
+                else:
                     agent.findNearestNest()
 
-
-Output results
-
-'''
+    #Update time frames
