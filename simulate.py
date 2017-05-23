@@ -21,10 +21,10 @@ foragingTime = True
 for agent in agents:
     print(agent.habitatType)
 '''
-for i in range(1,100):
+for time in range(1,100):
     for agent in agents:
         if nestMakingTime == True and availableNests > 0:
-            availableNests = availableNests - agent.attemptNest()
+            availableNests = availableNests - agent.attemptNest(time)
         elif breedingTime == True:
             if agent.isNest():
                 agent.layEgg()

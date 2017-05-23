@@ -22,7 +22,7 @@ class Agent(object):
 
         return agents
 
-    def attemptNest(self):
+    def attemptNest(self, time):
         #If probability pulled from a distribution is above a certain threshold,
         #create a new nest
 
