@@ -3,9 +3,15 @@
 import numpy as np
 import sys
 from src.agent import Agent
+from sys.scenario import Scenario
 
-agents = Agent.createAgentDB(str(sys.argv[1]))
-totalAdults = int(sys.argv[2])
+scenario = Scenario.readScenario(str(sys.argv[1]))
+
+#agentDB = Agent.createAgentDB(scenario.getMap())
+agentDB = Agent.createAgentDB("maps/test.csv")
+
+#totalAdults = scenario.getTotalAdults()
+totalAdults = 11
 
 #Agent natural mortality by habitat type and stage
 
@@ -18,7 +24,7 @@ breedingTime = True
 foragingTime = True
 
 for time in range(1,35712):
-    for agent in agents:
+    for agent in agentDB:
         if nestMakingTime == True and availableNests > 0:
             print("Here\n")
             availableNests = availableNests - agent.attemptNest(currentTime)
