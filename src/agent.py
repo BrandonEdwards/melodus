@@ -2,6 +2,7 @@ from .nest import Nest
 import numpy as np
 
 class Agent(object):
+    agentID = 0
     habitatType = 0
     humanPresence = False
     predatorPresence = False
@@ -9,18 +10,24 @@ class Agent(object):
     chickWeight = list()
     closestNest = 0
 
-    def __init__(self, habitatType):
+    def __init__(self, ID, habitatType):
+        self.agentID = ID
         self.habitatType = habitatType
 
     def createAgentDB(mapName):
         map = np.genfromtxt(mapName, delimiter=",")
         agents = list()
+        ID = 0
 
-        for i in map:
-            for j in i:
-                agents.append(Agent(j))
+        for row in map:
+            for habitatType in row:
+                agents.append(Agent(ID, habitatType))
+                ID += 1
 
         return agents
+
+    def getAgentID(self):
+        return self.agentID
 
     def attemptNest(self, time):
         #If probability pulled from a distribution is above a certain threshold,
