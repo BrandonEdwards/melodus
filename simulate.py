@@ -5,20 +5,23 @@ import sys
 from src.agent import Agent
 
 agents = Agent.createAgentDB(str(sys.argv[1]))
+totalAdults = int(sys.argv[2])
 
 #Agent natural mortality by habitat type and stage
 
 #Change these later
 nestMakingTime = True
-availableNests = 5
-currentTime = 0
+#assume 50/50 split of males and females
+availableNests = int(totalAdults / 2)
+currentTime = 1
 breedingTime = True
 foragingTime = True
 
-for time in range(1,100):
+for time in range(1,35712):
     for agent in agents:
         if nestMakingTime == True and availableNests > 0:
-            availableNests = availableNests - agent.attemptNest(time)
+            print("Here\n")
+            availableNests = availableNests - agent.attemptNest(currentTime)
         elif breedingTime == True:
             if agent.isNest():
                 agent.layEgg()
@@ -38,3 +41,8 @@ for time in range(1,100):
                     agent.findNearestNest()
 
     #Update time frames
+    if currentTime > 8928:
+        nestMakingTime = False
+
+
+#output data to files
