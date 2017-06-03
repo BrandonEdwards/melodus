@@ -3,17 +3,17 @@
 import numpy as np
 import sys
 from src.agent import Agent
-from sys.scenario import Scenario
+from src.scenario import Scenario
+print("Packges imported.")
 
-scenario = Scenario.readScenario(str(sys.argv[1]))
+#implement this later
+#scenario = Scenario.readScenario(str(sys.argv[1]))
+scenario = Scenario(); print("Scenario created.")
 
-#agentDB = Agent.createAgentDB(scenario.getMap())
-agentDB = Agent.createAgentDB("maps/test.csv")
+mapLocation = scenario.getMap()
+agentDB = Agent.createAgentDB(mapLocation); print("Agent database created.")
 
-#totalAdults = scenario.getTotalAdults()
-totalAdults = 11
-
-#Agent natural mortality by habitat type and stage
+totalAdults = scenario.getInitialAdults();
 
 #Change these later
 nestMakingTime = True
@@ -23,28 +23,30 @@ currentTime = 1
 breedingTime = True
 foragingTime = True
 
+print("Beginning simulation.")
 for time in range(1,35712):
     for agent in agentDB:
-        if nestMakingTime == True and availableNests > 0:
-            print("Here\n")
-            availableNests = availableNests - agent.attemptNest(currentTime)
-        elif breedingTime == True:
-            if agent.isNest():
-                agent.layEgg()
-        else:
-            if agent.isHumanPresence():
-                agent.flush();
-                continue
-            if foragingTime == True:
-                if agent.humanInAlertDistance() == True:
-                    agent.forage(True) #Reduced foraging = True
-                else:
-                    agent.forage(False) #Reduced foraging = False
+        if agent.isEmpty() == False:
+            print("Agent not empty apparently")
+            if nestMakingTime == True and availableNests > 0:
+                availableNests = availableNests - agent.attemptNest(currentTime)
+            elif breedingTime == True:
+                if agent.isNest():
+                    agent.layEgg()
             else:
-                if agent.chickAtNest() == True:
-                    agent.rest()
+                if agent.isHumanPresence():
+                    agent.flush();
+                    continue
+                if foragingTime == True:
+                    if agent.humanInAlertDistance() == True:
+                        agent.forage(True) #Reduced foraging = True
+                    else:
+                        agent.forage(False) #Reduced foraging = False
                 else:
-                    agent.findNearestNest()
+                    if agent.chickAtNest() == True:
+                        agent.rest()
+                    else:
+                        agent.findNearestNest()
 
     #Update time frames
     if currentTime > 8928:
