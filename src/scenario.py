@@ -1,12 +1,11 @@
 class Scenario(object):
-	scenarioMap = None
-	initialAdults = 0
-	energyVector = list()
+	def __init__(self):
+		self.scenarioMap = "maps/test.csv"
+		self.initialAdults = 10
+		self.energyVector = [0,0,0,0,0,0]
 
-	def __init__(self, scenarioMap, initialAdults, energyVector):
-		pass
 
-	def readScenario(file)
+	def readScenario(file):
 		#readfile
 		#get map
 		#get inital adults
@@ -14,3 +13,9 @@ class Scenario(object):
 		#make new scenario
 		#return scenario
 		pass
+
+	def getMap(self):
+		return self.scenarioMap
+
+	def getInitialAdults(self):
+		return self.initialAdults
