@@ -29,6 +29,12 @@ class Agent(object):
     def getAgentID(self):
         return self.agentID
 
+    def isEmpty(self):
+        if self.nestInfo == None and len(self.chickWeight) == 0:
+            return True
+        else:
+            return False
+
     def attemptNest(self, time):
         #If probability pulled from a distribution is above a certain threshold,
         #create a new nest
@@ -40,7 +46,7 @@ class Agent(object):
         if self.nestInfo == None:
             return False
         else:
-            return true
+            return True
 
     def layEgg(self):
         pass
@@ -58,7 +64,7 @@ class Agent(object):
         pass
 
     def chickAtNest(self):
-        if nestInfo == None and len(chickWeight) > 0:
+        if self.nestInfo == None and len(self.chickWeight) > 0:
             return False
         else:
             return True
