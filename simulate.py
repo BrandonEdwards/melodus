@@ -28,7 +28,7 @@ for time in range(1,35712):
     for agent in agentDB:
         if agent.isEmpty() == False:
             print("Agent not empty apparently")
-            if nestMakingTime == True and availableNests > 0:
+            if availableNests > 0 and nestMakingTime == True:
                 availableNests = availableNests - agent.attemptNest(currentTime)
             elif breedingTime == True:
                 if agent.isNest():
