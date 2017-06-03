@@ -1,4 +1,5 @@
 from .nest import Nest
+#from scipy.stats import truncnorm
 import numpy as np
 
 class Agent(object):
