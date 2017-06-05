@@ -42,9 +42,10 @@ class Agent(object):
     def attemptNest(self, availableNests, time):
         numNests = np.random.binomial(availableNests, 0.0000001, 1)
         if numNests > 0:
-            print(numNests)
-            print(time)
+          #  print(numNests)
+           # print(time)
             self.nestInfo = Nest(time)
+            print("Nest successfully created in agent ", self.agentID, " at time ", time)
             return 1
         else:
         #If probability pulled from a distribution is above a certain threshold,
