@@ -12,11 +12,11 @@ print("Packges imported.")
 #scenario = Scenario.readScenario(str(sys.argv[1]))
 scenario = Scenario(); print("Scenario created.")
 
-mapLocation = scenario.getMap()
-agentDB = Agent.createAgentDB(mapLocation); print("Agent database created.")
-nestHabitatHash = u.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
+agentDB = Agent.createAgentDB(scenario.getMap()); print("Agent database created.")
+scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
+#nestHabitatHash = u.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 
-totalAdults = scenario.getInitialAdults();
+totalAdults = scenario.getInitialAdults(); print("Initial adults = ", totalAdults)
 
 #Change these later
 nestMakingTime = True
@@ -32,7 +32,7 @@ for time in range(1,35712):
     start_time = TIME.time()
     for agent in agentDB:
 
-        if agent.getAgentID() in nestHabitatHash:
+        if scenario.isNestHabitat(agent.getAgentID()):
             if availableNests > 0 and nestMakingTime == True:
                 availableNests = availableNests - agent.attemptNest(availableNests, time)
 
@@ -60,6 +60,6 @@ for time in range(1,35712):
     if time > 9000:
         nestMakingTime = False
         breedingTime = False
-    #print(TIME.time() - start_time)
+   # print(TIME.time() - start_time)
 
 #output data to files
