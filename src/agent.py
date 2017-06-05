@@ -1,5 +1,5 @@
 from .nest import Nest
-#from scipy.stats import truncnorm
+from scipy.stats import truncnorm
 import numpy as np
 
 class Agent(object):
@@ -30,18 +30,28 @@ class Agent(object):
     def getAgentID(self):
         return self.agentID
 
+    def getHabitatType(self):
+        return self.habitatType
+
     def isEmpty(self):
         if self.nestInfo == None and len(self.chickWeight) == 0:
             return True
         else:
             return False
 
-    def attemptNest(self, time):
+    def attemptNest(self, availableNests, time):
+        numNests = np.random.binomial(availableNests, 0.0000001, 1)
+        if numNests > 0:
+            print(numNests)
+            print(time)
+            self.nestInfo = Nest(time)
+            return 1
+        else:
         #If probability pulled from a distribution is above a certain threshold,
         #create a new nest
 
         #Return 1 on success, 0 on failure
-        return 1
+            return 0
 
     def isNest(self):
         if self.nestInfo == None:
@@ -53,7 +63,7 @@ class Agent(object):
         pass
 
     def isHumanPresence(self):
-        return humanPresence
+        return self.humanPresence
 
     def flush(self):
         pass
