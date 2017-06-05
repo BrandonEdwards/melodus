@@ -14,7 +14,7 @@ scenario = Scenario(); print("Scenario created.")
 
 mapLocation = scenario.getMap()
 agentDB = Agent.createAgentDB(mapLocation); print("Agent database created.")
-nestHabitatHash = u.hashNestingHabitat(agentDB)
+nestHabitatHash = u.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 
 totalAdults = scenario.getInitialAdults();
 
@@ -25,18 +25,16 @@ availableNests = int(totalAdults / 2)
 currentTime = 1
 breedingTime = True
 foragingTime = True
-'''
+
 print("Beginning simulation.")
 for time in range(1,35712):
-    print(time)
+ #   print(time)
     start_time = TIME.time()
     for agent in agentDB:
 
-        #We probably want to "inject" adults into random agents so that we don't have
-        #cycle through all the agents. But actually now that i think about it, we should
-        #hash the proper breeding areas so that we don't have to cycle through ALL of them
-        if availableNests > 0 and nestMakingTime == True:
-            availableNests = availableNests - agent.attemptNest(availableNests, time)
+        if agent.getAgentID() in nestHabitatHash:
+            if availableNests > 0 and nestMakingTime == True:
+                availableNests = availableNests - agent.attemptNest(availableNests, time)
 
         if agent.isEmpty() == False:
             if breedingTime == True:
@@ -59,10 +57,9 @@ for time in range(1,35712):
 
     #Update time frames
 
-    if time > 200:
+    if time > 9000:
         nestMakingTime = False
         breedingTime = False
-    print(TIME.time() - start_time)
+    #print(TIME.time() - start_time)
 
 #output data to files
-'''
