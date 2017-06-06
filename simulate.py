@@ -13,6 +13,7 @@ print("Packges imported.")
 scenario = Scenario(); print("Scenario created.")
 
 agentDB = Agent.createAgentDB(scenario.getMap()); print("Agent database created.")
+
 scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 #nestHabitatHash = u.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 
@@ -26,22 +27,25 @@ currentTime = 1
 breedingTime = True
 foragingTime = True
 
+nestLocations = list()
+
 print("Beginning simulation.")
 for time in range(1,35712):
     if time % 100 == 0:
         print("Current time is ", time)
- #   print(time)
+
     start_time = TIME.time()
     for agent in agentDB:
         if availableNests > 0 and nestMakingTime == True:
             if scenario.isNestHabitat(agent.getAgentID()):
-                availableNests = availableNests - agent.attemptNest(availableNests, time)
+                if (agent.attemptNest(availableNests, time) == 1):
+                    availableNests -= 1
+                    nestLocations.append(agent)
 
         if agent.isEmpty() == False:
             if breedingTime == True:
                 if agent.isNest():
                     agent.layEgg(time)
-         #   print("Agent not empty apparently")
             if agent.isHumanPresence():
                 agent.flush();
                 continue
@@ -57,6 +61,9 @@ for time in range(1,35712):
                     agent.findNearestNest()
 
     #Update time frames
+   # for nest in nestLocations:
+    #    if breedingTime == True:
+     #       nest.layEgg(time)
 
     if time > 9000:
         nestMakingTime = False; print("Nest making time has ended.")
