@@ -1,11 +1,10 @@
-from .agent import Agent
+import math
 
-def hashNestingHabitat(agentDB):
-	nestingHash = dict()
-	i = 0
-	for agent in agentDB:
-		if agent.getHabitatType() == 2:
-			nestingHash[i] = agent.getAgentID()
-			i += 1
+def timeToString(time):
+	mins = time * 5;
+	hours = math.floor(mins / 60)
+	days = math.floor(hours / 24)
 
-	return nestingHash
+	string = "Day " + (days + 1) + " at time " + (hours - (days * 24)) + ":" + (mins - (hours * 60))
+
+	return string
