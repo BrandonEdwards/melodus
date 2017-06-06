@@ -28,12 +28,13 @@ foragingTime = True
 
 print("Beginning simulation.")
 for time in range(1,35712):
+    if time % 100 == 0:
+        print("Current time is ", time)
  #   print(time)
     start_time = TIME.time()
     for agent in agentDB:
-
-        if scenario.isNestHabitat(agent.getAgentID()):
-            if availableNests > 0 and nestMakingTime == True:
+        if availableNests > 0 and nestMakingTime == True:
+            if scenario.isNestHabitat(agent.getAgentID()):
                 availableNests = availableNests - agent.attemptNest(availableNests, time)
 
         if agent.isEmpty() == False:
@@ -58,8 +59,9 @@ for time in range(1,35712):
     #Update time frames
 
     if time > 9000:
-        nestMakingTime = False
-        breedingTime = False
+        nestMakingTime = False; print("Nest making time has ended.")
+    if time > 10000:
+        breedingTime = False; print("Breeding time has ended.")
    # print(TIME.time() - start_time)
 
 #output data to files
