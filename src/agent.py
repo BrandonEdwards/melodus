@@ -40,7 +40,7 @@ class Agent(object):
             return False
 
     def attemptNest(self, availableNests, time):
-        numNests = np.random.binomial(availableNests, 0.0000001, 1)
+        numNests = np.random.binomial(availableNests, 0.000001, 1)
         if numNests > 0:
           #  print(numNests)
            # print(time)
