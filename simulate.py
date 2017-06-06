@@ -42,9 +42,6 @@ for time in range(1,35712):
                     nestLocations.append(agent)
 
         if agent.isEmpty() == False:
-          #  if breedingTime == True:
-           #     if agent.isNest():
-            #        agent.layEgg(time)
             if agent.isHumanPresence():
                 agent.flush();
                 continue
