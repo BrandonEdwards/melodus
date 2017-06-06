@@ -14,7 +14,6 @@ class Nest(object):
 		if time == self.eggLayingTimes[0]:
 			self.totalEggs += 1
 			del self.eggLayingTimes[0]
-			print(self.eggLayingTimes)
 			return 1
 		else:
 			return 0
