@@ -42,6 +42,11 @@ for time in range(1,35712):
                     nestLocations.append(agent)
 
         if agent.isEmpty() == False:
+            if breedingTime == True:
+                if agent.isNest():
+                    agent.layEgg(time)
+                agent.checkHatchTime(time)
+
             if agent.isHumanPresence():
                 agent.flush();
                 continue
@@ -57,14 +62,14 @@ for time in range(1,35712):
                     agent.findNearestNest()
 
     #Update time frames
-    for nest in nestLocations:
-        if breedingTime == True:
-            nest.layEgg(time)
-        nest.checkHatchTime(time)
+  #  for nest in nestLocations:
+   #     if breedingTime == True:
+    #        nest.layEgg(time)
+     #   nest.checkHatchTime(time)
 
     if nestMakingTime == True and time > 9000:
         nestMakingTime = False; print("Nest making time has ended.")
-    if breedingTime == True and time > 10000:
+    if breedingTime == True and time > 20000:
         breedingTime = False; print("Breeding time has ended.")
    # print(TIME.time() - start_time)
 
