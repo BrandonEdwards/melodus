@@ -3,17 +3,14 @@ from scipy.stats import truncnorm
 import numpy as np
 
 class Agent(object):
-    agentID = 0
-    habitatType = 0
-    humanPresence = False
-    predatorPresence = False
-    nestInfo = None
-    chickWeight = list()
-    closestNest = 0
-
     def __init__(self, ID, habitatType):
         self.agentID = ID
         self.habitatType = habitatType
+        self.humanPresence = False
+        self.predatorPresence = False
+        self.nestInfo = None
+        self.chickWeight = list()
+        self.closestNest = 0
 
     def createAgentDB(mapName):
         map = np.genfromtxt(mapName, delimiter=",")
