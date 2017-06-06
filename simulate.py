@@ -26,8 +26,6 @@ currentTime = 1
 breedingTime = True
 foragingTime = True
 
-nestLocations = list()
-
 print("Beginning simulation.")
 for time in range(1,35712):
     if time % 100 == 0:
@@ -37,9 +35,7 @@ for time in range(1,35712):
     for agent in agentDB:
         if availableNests > 0 and nestMakingTime == True:
             if scenario.isNestHabitat(agent.getAgentID()):
-                if (agent.attemptNest(availableNests, time) == 1):
-                    availableNests -= 1
-                    nestLocations.append(agent)
+                availableNests = availableNests - agent.attemptNest(availableNests, time)
 
         if agent.isEmpty() == False:
             if breedingTime == True:
