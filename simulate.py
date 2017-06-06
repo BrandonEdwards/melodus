@@ -61,12 +61,6 @@ for time in range(1,35712):
                 else:
                     agent.findNearestNest()
 
-    #Update time frames
-  #  for nest in nestLocations:
-   #     if breedingTime == True:
-    #        nest.layEgg(time)
-     #   nest.checkHatchTime(time)
-
     if nestMakingTime == True and time > 9000:
         nestMakingTime = False; print("Nest making time has ended.")
     if breedingTime == True and time > 20000:
