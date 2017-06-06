@@ -15,7 +15,6 @@ scenario = Scenario(); print("Scenario created.")
 agentDB = Agent.createAgentDB(scenario.getMap()); print("Agent database created.")
 
 scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
-#nestHabitatHash = u.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 
 totalAdults = scenario.getInitialAdults(); print("Initial adults = ", totalAdults)
 
@@ -43,9 +42,9 @@ for time in range(1,35712):
                     nestLocations.append(agent)
 
         if agent.isEmpty() == False:
-            if breedingTime == True:
-                if agent.isNest():
-                    agent.layEgg(time)
+          #  if breedingTime == True:
+           #     if agent.isNest():
+            #        agent.layEgg(time)
             if agent.isHumanPresence():
                 agent.flush();
                 continue
@@ -61,13 +60,14 @@ for time in range(1,35712):
                     agent.findNearestNest()
 
     #Update time frames
-   # for nest in nestLocations:
-    #    if breedingTime == True:
-     #       nest.layEgg(time)
+    for nest in nestLocations:
+        if breedingTime == True:
+            nest.layEgg(time)
+        nest.checkHatchTime(time)
 
-    if time > 9000:
+    if nestMakingTime == True and time > 9000:
         nestMakingTime = False; print("Nest making time has ended.")
-    if time > 10000:
+    if breedingTime == True and time > 10000:
         breedingTime = False; print("Breeding time has ended.")
    # print(TIME.time() - start_time)
 
