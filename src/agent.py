@@ -59,9 +59,11 @@ class Agent(object):
             print("Laid egg at nest in agent ", self.agentID)
 
     def checkHatchTime(self, time):
-        test = self.nestInfo.hatch(time)
-        if test != None:
-            print(test)
+        weights = self.nestInfo.hatch(time)
+        if weights != None:
+            for weight in weights:
+                self.chickWeight.append(round(weight,3))
+            print("Chicks successfully hatched in agent ", self.agentID, " with weights: ", self.chickWeight)
 
     def isHumanPresence(self):
         return self.humanPresence
