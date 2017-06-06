@@ -40,7 +40,7 @@ for time in range(1,35712):
         if agent.isEmpty() == False:
             if breedingTime == True:
                 if agent.isNest():
-                    agent.layEgg()
+                    agent.layEgg(time)
          #   print("Agent not empty apparently")
             if agent.isHumanPresence():
                 agent.flush();

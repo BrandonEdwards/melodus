@@ -16,5 +16,11 @@ class Nest(object):
         print(self.hatchTime)
         
 
-    def layEgg(self):
-    	self.totalEggs += 1
+    def layEgg(self, time):
+    	if time == self.eggLayingTimes[0]:
+    		self.totalEggs += 1
+    		del self.eggLayingTimes[0]
+    		print(self.eggLayingTimes)
+    		return 1
+    	else:
+    		return 0

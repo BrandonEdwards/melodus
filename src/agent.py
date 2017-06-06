@@ -40,7 +40,10 @@ class Agent(object):
             return False
 
     def attemptNest(self, availableNests, time):
-        numNests = np.random.binomial(availableNests, 0.000001, 1)
+        if self.nestInfo != None:
+            return 0
+
+        numNests = np.random.binomial(availableNests, 0.00001, 1)
         if numNests > 0:
           #  print(numNests)
            # print(time)
@@ -60,8 +63,9 @@ class Agent(object):
         else:
             return True
 
-    def layEgg(self):
-        pass
+    def layEgg(self, time):
+        if self.nestInfo.layEgg(time) == 1:
+            print("Laid egg at nest in agent ", self.agentID)
 
     def isHumanPresence(self):
         return self.humanPresence
