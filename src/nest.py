@@ -1,3 +1,5 @@
+import numpy as np
+
 class Nest(object):
 	def __init__(self, timeCreated):
 		self.timeCreated = timeCreated
@@ -8,7 +10,7 @@ class Nest(object):
 		for i in range(0,4):
 			self.eggLayingTimes.append(timeCreated + ((i+1) * 576))
 
-		self.hatchTime = self.eggLayingTimes[3] + (27 * 288); print(self.hatchTime)
+		self.hatchTime = self.eggLayingTimes[3] + (27 * 288);
 
 	def layEgg(self, time):
 		if len(self.eggLayingTimes) > 0:
@@ -21,6 +23,6 @@ class Nest(object):
 
 	def hatch(self, time):
 		if time == self.hatchTime:
-			return [12,12,12,12]
+			return np.random.normal(10,2,4)
 		else:
 			return None
