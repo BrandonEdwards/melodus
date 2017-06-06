@@ -2,18 +2,25 @@ class Nest(object):
 	def __init__(self, timeCreated):
 		self.timeCreated = timeCreated
 		self.eggLayingTimes = list()
-		self.hatchTime = None
+		self.hatchTime = 0
 		self.totalEggs = 0
 
 		for i in range(0,4):
 			self.eggLayingTimes.append(timeCreated + ((i+1) * 576))
 
-		self.hatchTime = self.eggLayingTimes[3] + (27 * 288)
+		self.hatchTime = self.eggLayingTimes[3] + (27 * 288); print(self.hatchTime)
 
 	def layEgg(self, time):
-		if time == self.eggLayingTimes[0]:
-			self.totalEggs += 1
-			del self.eggLayingTimes[0]
-			return 1
+		if len(self.eggLayingTimes) > 0:
+			if time == self.eggLayingTimes[0]:
+				self.totalEggs += 1
+				del self.eggLayingTimes[0]
+				return 1
+			else:
+				return 0
+
+	def hatch(self, time):
+		if time == self.hatchTime:
+			return [12,12,12,12]
 		else:
-			return 0
+			return None
