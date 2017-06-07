@@ -47,10 +47,7 @@ for time in range(1,35712):
                 agent.flush();
                 continue
             if foragingTime == True:
-                if agent.humanInAlertDistance() == True:
-                    agent.forage(scenario.getEnergyVector(), True) #Reduced foraging = True
-                else:
-                    agent.forage(scenario.getEnergyVector(), False) #Reduced foraging = False
+                agent.forage(scenario.getEnergyVector())
             else:
                 if agent.chickAtNest() == True:
                     agent.rest()
