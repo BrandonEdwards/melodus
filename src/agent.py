@@ -78,7 +78,8 @@ class Agent(object):
             if reduced == False:
                 #multiply all elements in chick energy by energy gain
                 self.chickWeight[:] = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
-                print(self.chickWeight)
+            else:
+                self.chickWeight[:] = [i + (0.0035 * energyVector[self.habitatType]) for i in self.chickWeight]
 
     def humanInAlertDistance(self):
         pass
