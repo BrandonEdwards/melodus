@@ -1,5 +1,4 @@
 from .nest import Nest
-#from .scenario import Scenario
 from scipy.stats import truncnorm
 import numpy as np
 
@@ -73,11 +72,11 @@ class Agent(object):
     def flush(self):
         pass
 
-    def forage(self, scenario, reduced):
+    def forage(self, energyVector, reduced):
         if len(self.chickWeight) > 0:
             if reduced == False:
                 #multiply all elements in chick energy by energy gain
-                self.chickWeight[:] = [i + (0.007 * scenario.energyVector[self.agentID]) for i in self.chickWeight]
+                self.chickWeight[:] = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
                 print(self.chickWeight)
 
     def humanInAlertDistance(self):
