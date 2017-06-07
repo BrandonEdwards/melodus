@@ -5,7 +5,7 @@ import numpy as np
 class Agent(object):
     def __init__(self, ID, habitatType):
         self.agentID = ID
-        self.habitatType = habitatType
+        self.habitatType = int(habitatType)
         self.humanPresence = False
         self.predatorPresence = False
         self.nestInfo = None
@@ -44,6 +44,7 @@ class Agent(object):
         if numNests > 0:
             self.nestInfo = Nest(time)
             print("Nest successfully created in agent ", self.agentID, " at time ", time)
+            print("Habitat type = ", self.habitatType)
             return 1
         else:
             return 0
@@ -62,7 +63,7 @@ class Agent(object):
         weights = self.nestInfo.hatch(time)
         if weights != None:
             for weight in weights:
-                self.chickWeight.append(round(weight,3))
+                self.chickWeight.append(weight)
                 
             print("Chicks successfully hatched in agent ", self.agentID, " with weights: ", self.chickWeight)
 
