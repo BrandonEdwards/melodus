@@ -72,9 +72,9 @@ class Agent(object):
     def flush(self):
         pass
 
-    def forage(self, energyVector, reduced):
+    def forage(self, energyVector):
         if len(self.chickWeight) > 0:
-            if reduced == False:
+            if self.humanInAlertDistance() == False:
                 #multiply all elements in chick energy by energy gain
                 self.chickWeight[:] = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
             else:
