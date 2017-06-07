@@ -8,9 +8,9 @@ class Nest(object):
 		self.totalEggs = 0
 
 		for i in range(0,4):
-			self.eggLayingTimes.append(timeCreated + ((i+1) * 576))
+			self.eggLayingTimes.append(timeCreated + ((i+1) * 100))#576))
 
-		self.hatchTime = self.eggLayingTimes[3] + (27 * 288);
+		self.hatchTime = self.eggLayingTimes[3] + (1*288)#(27 * 288);
 
 	def layEgg(self, time):
 		if len(self.eggLayingTimes) > 0:
