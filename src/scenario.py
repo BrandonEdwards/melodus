@@ -6,7 +6,7 @@ class Scenario(object):
 	def __init__(self):
 		self.scenarioMap = "maps/test.csv"
 		self.initialAdults = math.ceil(np.random.normal(10,2,1))
-		self.energyVector = [0,0,0,0,0,0]
+		self.energyVector = [0.0,0.5,0.33,1.0,0,0]
 		self.nestHabitatHash = dict()
 
 
@@ -34,3 +34,6 @@ class Scenario(object):
 
 	def getInitialAdults(self):
 		return self.initialAdults
+
+	def getEnergyVector(self):
+		return self.energyVector
