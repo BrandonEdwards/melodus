@@ -48,9 +48,9 @@ for time in range(1,35712):
                 continue
             if foragingTime == True:
                 if agent.humanInAlertDistance() == True:
-                    agent.forage(True) #Reduced foraging = True
+                    agent.forage(scenario.getEnergyVector(), True) #Reduced foraging = True
                 else:
-                    agent.forage(False) #Reduced foraging = False
+                    agent.forage(scenario.getEnergyVector(), False) #Reduced foraging = False
             else:
                 if agent.chickAtNest() == True:
                     agent.rest()
