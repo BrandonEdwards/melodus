@@ -34,7 +34,7 @@ for time in range(1,35712):
     start_time = TIME.time()
     for agent in agentDB:
         if availableNests > 0 and nestMakingTime == True:
-            if scenario.isNestHabitat(agent.getAgentID()):
+            if scenario.isNestHabitat(agent):
                 availableNests = availableNests - agent.attemptNest(availableNests, time)
 
         if agent.isEmpty() == False:
