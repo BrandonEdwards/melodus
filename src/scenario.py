@@ -7,7 +7,7 @@ class Scenario(object):
 		self.scenarioMap = "maps/test.csv"
 		self.initialAdults = 2#math.ceil(np.random.normal(10,2,1))
 		self.energyVector = [0.0,0.5,0.33,1.0,0,0]
-		self.nestHabitatHash = dict()
+		self.nestHabitatList = set()
 
 
 	def readScenario(file):
@@ -23,14 +23,14 @@ class Scenario(object):
 		return self.scenarioMap
 
 	def hashNestingHabitat(self, agentDB):
-		i = 0
 		for agent in agentDB:
+			#print("Testing if ", agent.getHabitatType(), " == 2", agent.getHabitatType() == 2)
 			if agent.getHabitatType() == 2:
-				self.nestHabitatHash[i] = agent.getAgentID()
-				i += 1
+				self.nestHabitatList.add(agent.getAgentID())
 
 	def isNestHabitat(self, agent):
-		return agent in self.nestHabitatHash
+		#print("Agent ID = ", agent.getAgentID(), ", Habitat Type = ", agent.getHabitatType(), ", returns", agent.getAgentID() in self.nestHabitatList)
+		return agent.getAgentID() in self.nestHabitatList
 
 	def getInitialAdults(self):
 		return self.initialAdults
