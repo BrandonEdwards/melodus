@@ -1,4 +1,5 @@
 from .nest import Nest
+#from .scenario import Scenario
 from scipy.stats import truncnorm
 import numpy as np
 
@@ -63,6 +64,7 @@ class Agent(object):
         if weights != None:
             for weight in weights:
                 self.chickWeight.append(round(weight,3))
+                
             print("Chicks successfully hatched in agent ", self.agentID, " with weights: ", self.chickWeight)
 
     def isHumanPresence(self):
@@ -71,8 +73,12 @@ class Agent(object):
     def flush(self):
         pass
 
-    def forage(self, reduced):
-        pass
+    def forage(self, scenario, reduced):
+        if len(self.chickWeight) > 0:
+            if reduced == False:
+                #multiply all elements in chick energy by energy gain
+                self.chickWeight[:] = [i + (0.007 * scenario.energyVector[self.agentID]) for i in self.chickWeight]
+                print(self.chickWeight)
 
     def humanInAlertDistance(self):
         pass
