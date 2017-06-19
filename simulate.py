@@ -11,6 +11,7 @@ print("Packges imported.")
 #implement this later
 #scenario = Scenario.readScenario(str(sys.argv[1]))
 scenario = Scenario(); print("Scenario created.")
+scenario.setMapHeight();
 
 agentDB = Agent.createAgentDB(scenario.getMap()); print("Agent database created.")
 
