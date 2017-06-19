@@ -5,7 +5,8 @@ import math
 class Scenario(object):
 	def __init__(self):
 		self.scenarioMap = "maps/test.csv"
-		self.initialAdults = 2#math.ceil(np.random.normal(10,2,1))
+		self.mapHeight = 0
+		self.initialAdults = math.ceil(np.random.normal(10,2,1))
 		self.energyVector = [0.0,0.5,0.33,1.0,0,0]
 		self.nestHabitatList = set()
 
@@ -13,6 +14,7 @@ class Scenario(object):
 	def readScenario(file):
 		#readfile
 		#get map
+		#get map height
 		#get inital adults
 		#get energy vector
 		#make new scenario
@@ -21,6 +23,14 @@ class Scenario(object):
 
 	def getMap(self):
 		return self.scenarioMap
+
+	def setMapHeight(self):
+		mapLocation = np.genfromtxt(self.scenarioMap, delimiter=",")
+
+		for row in mapLocation:
+			self.mapHeight += 1
+
+		return
 
 	def hashNestingHabitat(self, agentDB):
 		for agent in agentDB:
