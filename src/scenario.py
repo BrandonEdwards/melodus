@@ -5,7 +5,7 @@ import math
 class Scenario(object):
 	def __init__(self):
 		self.scenarioMap = "maps/test.csv"
-		self.mapHeight = 0
+		self.mapWidth = 0
 		self.initialAdults = math.ceil(np.random.normal(10,2,1))
 		self.energyVector = [0.0,0.5,0.33,1.0,0,0]
 		self.nestHabitatList = set()
@@ -24,11 +24,11 @@ class Scenario(object):
 	def getMap(self):
 		return self.scenarioMap
 
-	def setMapHeight(self):
+	def setMapWidth(self):
 		mapLocation = np.genfromtxt(self.scenarioMap, delimiter=",")
 
-		for row in mapLocation:
-			self.mapHeight += 1
+		for element in mapLocation[0]:
+			self.mapWidth += 1
 
 		return
 
