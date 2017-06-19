@@ -13,11 +13,11 @@ class Agent(object):
         self.closestNest = 0
 
     def createAgentDB(mapName):
-        map = np.genfromtxt(mapName, delimiter=",")
+        mapLocation = np.genfromtxt(mapName, delimiter=",")
         agents = list()
         ID = 0
 
-        for row in map:
+        for row in mapLocation:
             for habitatType in row:
                 agents.append(Agent(ID, habitatType))
                 ID += 1
