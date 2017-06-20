@@ -11,14 +11,19 @@ class Scenario(object):
 		self.nestHabitatList = set()
 
 	def createAgentDB(self):
-		mapLocation = np.genfromtxt(self.scenarioMap, delimiter=",")
+		habitat = np.genfromtxt(self.scenarioMap, delimiter=",")
+
+		#Pad habitat to avoid out of bounds errors for map matrices
+		habitat = np.pad(habitat, 200, mode = 'constant', constant_values = -1)
+
+		#Flatten habitat to iterate through
+		habitat = habitat.flatten()
 		agents = list()
 		ID = 0
 
-		for row in mapLocation:
-			for habitatType in row:
-				agents.append(Agent(ID, habitatType))
-				ID += 1
+		for ID in range(0,len(habitat)):
+			if habitat[ID] >= 0:
+				agents.append(Agent(ID, habitat[ID]))
 
 		return agents
 
