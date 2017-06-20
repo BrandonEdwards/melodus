@@ -44,9 +44,9 @@ class Agent(object):
         if numNests > 0:
             self.nestInfo = Nest(time)
             print("Nest successfully created in agent ", self.agentID, " at time ", time)
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     def isNest(self):
         if self.nestInfo == None:
