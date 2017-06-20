@@ -10,6 +10,17 @@ class Scenario(object):
 		self.energyVector = [0.0,0.5,0.33,1.0,0,0]
 		self.nestHabitatList = set()
 
+	def createAgentDB(self):
+		mapLocation = np.genfromtxt(self.scenarioMap, delimiter=",")
+		agents = list()
+		ID = 0
+
+		for row in mapLocation:
+			for habitatType in row:
+				agents.append(Agent(ID, habitatType))
+				ID += 1
+
+		return agents
 
 	def readScenario(file):
 		#readfile
@@ -41,7 +52,7 @@ class Scenario(object):
 	def updateNestingHabitat(self, ID):
 		#See "General Map Matrix" page in your labbook for details on this weird thing
 		#You probably want to make this into a more generic function for later use
-		lower = -10
+		lower = -100
 		upper = lower * -1
 		toRemove = set()
 		for x in range(lower,upper):

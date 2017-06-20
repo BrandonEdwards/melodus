@@ -12,18 +12,6 @@ class Agent(object):
         self.chickWeight = list()
         self.closestNest = 0
 
-    def createAgentDB(mapName):
-        mapLocation = np.genfromtxt(mapName, delimiter=",")
-        agents = list()
-        ID = 0
-
-        for row in mapLocation:
-            for habitatType in row:
-                agents.append(Agent(ID, habitatType))
-                ID += 1
-
-        return agents
-
     def getAgentID(self):
         return self.agentID
 
