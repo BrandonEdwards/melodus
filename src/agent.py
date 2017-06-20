@@ -19,7 +19,7 @@ class Agent(object):
         return self.habitatType
 
     def isEmpty(self):
-        if self.nestInfo == None and len(self.chickWeight) == 0:
+        if len(self.chickWeight) == 0:
             return True
         else:
             return False
@@ -68,6 +68,50 @@ class Agent(object):
                 self.chickWeight[:] = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
             else:
                 self.chickWeight[:] = [i + (0.0035 * energyVector[self.habitatType]) for i in self.chickWeight]
+
+    def move(self, agentDB, IDToAgent, habitatVector, energyVector, mapWidth):
+        #See "General Map Matrix" page in your labbook for details on this weird thing
+        #You probably want to make this into a more generic function for later use
+        lower = -25
+        upper = lower * -1
+        moveChoices = list()
+        for x in range(lower,upper):
+            for b in range(lower,upper):
+                moveChoices.append(self.agentID + (x * mapWidth) + b)
+
+        #Get rid of all move choices that are out of environment (if necessary)
+        moveChoices = [i for i in moveChoices if habitatVector[i] > -1]
+
+        #Convert all to agent IDs to their respective habitat type
+        moveChoicesHabitat = [habitatVector[i] for i in moveChoices]
+
+        #Convert all habitat types to energyVectors
+        moveChoicesEnergy = [energyVector[i] for i in moveChoicesHabitat]
+
+        #Normalize the movement choice energy vectors
+        moveLocationArray = np.random.multinomial(1, [float(i)/sum(moveChoices) for i in moveChoices], size = 1)
+        moveLocationIndex = -1
+        for i in range(0, len(moveLocationArray[0])):
+            if moveLocationArray[0][i] == 1:
+                moveLocationIndex = moveLocationArray[0][i]
+                break
+
+        if moveLocationIndex == -1:
+            return agentDB
+
+        newAgentID = moveChoices[moveLocationIndex]
+        print(self.agentID, " ----------------------> ", agentDB[IDToAgent[newAgentID]].getAgentID)
+        print(self.chickWeight, " ", agentDB[IDToAgent[newAgentID]].chickWeight)
+        agentDB[IDToAgent[newAgentID]].chickWeight.append(self.chickWeight)
+        self.chickWeight = list()
+        print(self.chickWeight, " ", agentDB[IDToAgent[newAgentID]].chickWeight)
+
+        return agentDB        
+
+        #Get agent with this agent ID from the map that we are going to make
+        #Move the vectors
+        #Return agentDB
+
 
     def humanInAlertDistance(self):
         pass
