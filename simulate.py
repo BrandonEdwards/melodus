@@ -13,7 +13,7 @@ print("Packges imported.")
 scenario = Scenario(); print("Scenario created.")
 scenario.setMapWidth();
 
-agentDB = Agent.createAgentDB(scenario.getMap()); print("Agent database created.")
+agentDB = scenario.createAgentDB(); print("Agent database created.")
 
 scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 
@@ -51,6 +51,7 @@ for time in range(1,35712):
                 continue
             if foragingTime == True:
                 agent.forage(scenario.getEnergyVector())
+                #agent.move()
             else:
                 if agent.chickAtNest() == True:
                     agent.rest()
