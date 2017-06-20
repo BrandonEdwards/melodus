@@ -5,25 +5,26 @@ import math
 class Scenario(object):
 	def __init__(self):
 		self.scenarioMap = "maps/test.csv"
+		self.habitat = None
 		self.mapWidth = 0
 		self.initialAdults = math.ceil(np.random.normal(10,2,1))
 		self.energyVector = [0.0,0.5,0.33,1.0,0,0]
 		self.nestHabitatList = set()
 
 	def createAgentDB(self):
-		habitat = np.genfromtxt(self.scenarioMap, delimiter=",")
+		self.habitat = np.genfromtxt(self.scenarioMap, delimiter=",")
 
 		#Pad habitat to avoid out of bounds errors for map matrices
-		habitat = np.pad(habitat, 200, mode = 'constant', constant_values = -1)
+		self.habitat = np.pad(self.habitat, 200, mode = 'constant', constant_values = -1)
 
 		#Flatten habitat to iterate through
-		habitat = habitat.flatten()
+		self.habitat = self.habitat.flatten()
 		agents = list()
 		ID = 0
 
-		for ID in range(0,len(habitat)):
-			if habitat[ID] >= 0:
-				agents.append(Agent(ID, habitat[ID]))
+		for ID in range(0,len(self.habitat)):
+			if self.habitat[ID] >= 0:
+				agents.append(Agent(ID, self.habitat[ID]))
 
 		return agents
 
