@@ -38,6 +38,18 @@ class Scenario(object):
 			if agent.getHabitatType() == 2:
 				self.nestHabitatList.add(agent.getAgentID())
 
+	def updateNestingHabitat(self, ID):
+		#See "General Map Matrix" page in your labbook for details on this weird thing
+		#You probably want to make this into a more generic function for later use
+		lower = -10
+		upper = lower * -1
+		toRemove = set()
+		for x in range(lower,upper):
+			for b in range(lower,upper):
+				toRemove.add(ID + (x * self.mapWidth) + b)
+
+		self.nestHabitatList = self.nestHabitatList.difference(toRemove)
+
 	def isNestHabitat(self, agent):
 		#print("Agent ID = ", agent.getAgentID(), ", Habitat Type = ", agent.getHabitatType(), ", returns", agent.getAgentID() in self.nestHabitatList)
 		return agent.getAgentID() in self.nestHabitatList
