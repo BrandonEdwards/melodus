@@ -36,7 +36,9 @@ for time in range(1,35712):
     for agent in agentDB:
         if availableNests > 0 and nestMakingTime == True:
             if scenario.isNestHabitat(agent):
-                availableNests = availableNests - agent.attemptNest(availableNests, time)
+                if agent.attemptNest(availableNests, time) == True:
+                    availableNests -= 1
+                    scenario.updateNestingHabitat(agent.getAgentID())
 
         if agent.isEmpty() == False:
             if breedingTime == True:
