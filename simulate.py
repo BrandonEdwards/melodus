@@ -14,6 +14,8 @@ scenario = Scenario(); print("Scenario created.")
 scenario.setMapWidth();
 
 agentDB = scenario.createAgentDB(); print("Agent database created.")
+IDToAgent = u.mapIDToAgent(agentDB)
+print(IDToAgent[368835])
 
 scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 
@@ -40,18 +42,19 @@ for time in range(1,35712):
                     availableNests -= 1
                     scenario.updateNestingHabitat(agent.getAgentID())
 
-        if agent.isEmpty() == False:
+        if agent.isNest() == True:
             if breedingTime == True:
-                if agent.isNest():
-                    agent.layEgg(time)
-                agent.checkHatchTime(time)
+                agent.layEgg(time)
+            agent.checkHatchTime(time)
 
+        if agent.isEmpty() == False:
             if agent.isHumanPresence():
                 agent.flush();
                 continue
             if foragingTime == True:
                 agent.forage(scenario.getEnergyVector())
-                #agent.move()
+                agentDB = agent.move(agentDB, IDToAgent, scenario.getHabitatVector(), 
+                    scenario.getEnergyVector(), scenario.getMapWidth())
             else:
                 if agent.chickAtNest() == True:
                     agent.rest()
