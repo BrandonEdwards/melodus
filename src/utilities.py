@@ -1,4 +1,5 @@
 import math
+from src.agent import Agent
 
 def timeToString(time):
 	mins = time * 5;
@@ -8,3 +9,13 @@ def timeToString(time):
 	string = "Day " + (days + 1) + " at time " + (hours - (days * 24)) + ":" + (mins - (hours * 60))
 
 	return string
+
+def mapIDToAgent(agentDB):
+	IDToAgent = dict()
+
+	agentNum = 0
+	for agent in agentDB:
+		IDToAgent[agent.getAgentID()] = agentNum
+		agentNum += 1
+
+	return IDToAgent
