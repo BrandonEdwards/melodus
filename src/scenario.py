@@ -7,12 +7,12 @@ class Scenario(object):
 		self.scenarioMap = "maps/test.csv"
 		self.habitat = None
 		self.mapWidth = 0
-		self.initialAdults = math.ceil(np.random.normal(10,2,1))
+		self.initialAdults = 2#math.ceil(np.random.normal(10,2,1))
 		self.energyVector = [0.0,0.5,0.33,1.0,0,0]
 		self.nestHabitatList = set()
 
 	def createAgentDB(self):
-		self.habitat = np.genfromtxt(self.scenarioMap, delimiter=",")
+		self.habitat = (np.genfromtxt(self.scenarioMap, delimiter=",")).astype(int)
 
 		#Pad habitat to avoid out of bounds errors for map matrices
 		self.habitat = np.pad(self.habitat, 200, mode = 'constant', constant_values = -1)
@@ -27,6 +27,9 @@ class Scenario(object):
 				agents.append(Agent(ID, self.habitat[ID]))
 
 		return agents
+
+	def getHabitatVector(self):
+		return self.habitat
 
 	def readScenario(file):
 		#readfile
@@ -48,6 +51,9 @@ class Scenario(object):
 			self.mapWidth += 1
 
 		return
+
+	def getMapWidth(self):
+		return self.mapWidth
 
 	def hashNestingHabitat(self, agentDB):
 		for agent in agentDB:
