@@ -65,9 +65,9 @@ class Agent(object):
         if len(self.chickWeight) > 0:
             if self.humanInAlertDistance() == False:
                 #multiply all elements in chick energy by energy gain
-                self.chickWeight[:] = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
+                self.chickWeight = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
             else:
-                self.chickWeight[:] = [i + (0.0035 * energyVector[self.habitatType]) for i in self.chickWeight]
+                self.chickWeight = [i + (0.0035 * energyVector[self.habitatType]) for i in self.chickWeight]
 
     def move(self, agentDB, IDToAgent, habitatVector, energyVector, mapWidth):
         moveChoices = util.createMapMatrix(self.agentID, 25, mapWidth)
@@ -98,11 +98,11 @@ class Agent(object):
             print("No movement")
             return agentDB
             
-        print(self.agentID, " ----------------------> ", agentDB[IDToAgent[newAgentID]].getAgentID())
-        print(self.chickWeight, " ", agentDB[IDToAgent[newAgentID]].chickWeight)
+        #print(self.agentID, " ----------------------> ", agentDB[IDToAgent[newAgentID]].getAgentID())
+        #print(self.chickWeight, " ", agentDB[IDToAgent[newAgentID]].chickWeight)
         agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
         self.chickWeight = list()
-        print(self.chickWeight, " ", agentDB[IDToAgent[newAgentID]].chickWeight)
+        #print(self.chickWeight, " ", agentDB[IDToAgent[newAgentID]].chickWeight)
 
         return agentDB
 
