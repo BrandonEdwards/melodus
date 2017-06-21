@@ -1,5 +1,16 @@
 import math
 from src.agent import Agent
+from src.scenario import Scenario
+
+def readScenario(file):
+	#readfile
+	#get map
+	#get map height
+	#get inital adults
+	#get energy vector
+	#make new scenario
+	#return scenario
+	pass
 
 def timeToString(time):
 	mins = time * 5;
