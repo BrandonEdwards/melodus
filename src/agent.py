@@ -104,12 +104,7 @@ class Agent(object):
         self.chickWeight = list()
         print(self.chickWeight, " ", agentDB[IDToAgent[newAgentID]].chickWeight)
 
-        return agentDB        
-
-        #Get agent with this agent ID from the map that we are going to make
-        #Move the vectors
-        #Return agentDB
-
+        return agentDB
 
     def humanInAlertDistance(self):
         return False
