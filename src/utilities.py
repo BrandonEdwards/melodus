@@ -1,6 +1,4 @@
 import math
-from src.agent import Agent
-from src.scenario import Scenario
 
 def readScenario(file):
 	#readfile
@@ -20,6 +18,14 @@ def timeToString(time):
 	string = "Day " + (days + 1) + " at time " + (hours - (days * 24)) + ":" + (mins - (hours * 60))
 
 	return string
+
+def createMapMatrix(ID, radius, mapWidth):
+	mapMatrix = list()
+	for x in range((radius * -1),radius):
+		for b in range((radius * -1),radius):
+			mapMatrix.append(ID + (x * mapWidth) + b)
+	
+	return mapMatrix
 
 def mapIDToAgent(agentDB):
 	IDToAgent = dict()
