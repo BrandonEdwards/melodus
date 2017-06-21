@@ -1,6 +1,7 @@
 from .nest import Nest
 from scipy.stats import truncnorm
 import numpy as np
+import src.utilities as util
 
 class Agent(object):
     def __init__(self, ID, habitatType):
@@ -69,14 +70,7 @@ class Agent(object):
                 self.chickWeight[:] = [i + (0.0035 * energyVector[self.habitatType]) for i in self.chickWeight]
 
     def move(self, agentDB, IDToAgent, habitatVector, energyVector, mapWidth):
-        #See "General Map Matrix" page in your labbook for details on this weird thing
-        #You probably want to make this into a more generic function for later use
-        lower = -25
-        upper = lower * -1
-        moveChoices = list()
-        for x in range(lower,upper):
-            for b in range(lower,upper):
-                moveChoices.append(self.agentID + (x * mapWidth) + b)
+        moveChoices = util.createMapMatrix(self.agentID, 25, mapWidth)
 
         #Get rid of all move choices that are out of environment (if necessary)
         moveChoices = [i for i in moveChoices if habitatVector[i] > -1]
