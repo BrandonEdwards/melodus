@@ -21,6 +21,7 @@ scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 totalAdults = scenario.getInitialAdults(); print("Initial adults = ", totalAdults)
 
 #Change these later
+elapsedTime = 0.0
 nestMakingTime = True
 #assume 50/50 split of males and females
 availableNests = int(totalAdults / 2)
@@ -32,6 +33,8 @@ print("Beginning simulation.")
 for time in range(0,35712):
     if time % 100 == 0:
         print("Current time is ", time)
+        print("It took ", elapsedTime, " seconds for the previous 100 time steps.")
+        elapsedTime = 0.0
 
     start_time = TIME.time()
     for agent in agentDB:
@@ -66,6 +69,6 @@ for time in range(0,35712):
         breedingTime = False; print("Breeding time has ended.")
     if (time - 12) % 144 == 0:
         foragingTime = not foragingTime
-   # print(TIME.time() - start_time)
+    elapsedTime += (TIME.time() - start_time)
 
 #output data to files
