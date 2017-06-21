@@ -61,7 +61,6 @@ class Agent(object):
         pass
 
     def forage(self, energyVector):
-        #Move foraging amount
         if len(self.chickWeight) > 0:
             if self.humanInAlertDistance() == False:
                 #multiply all elements in chick energy by energy gain
@@ -119,7 +118,7 @@ class Agent(object):
 
 
     def humanInAlertDistance(self):
-        pass
+        return False
 
     def chickAtNest(self):
         if self.nestInfo == None and len(self.chickWeight) > 0:
