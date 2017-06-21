@@ -2,19 +2,19 @@
 
 import numpy as np
 import sys
-import src.utilities as u
+import src.utilities as util
 import time as TIME
 from src.agent import Agent
 from src.scenario import Scenario
 print("Packges imported.")
 
 #implement this later
-#scenario = Scenario.readScenario(str(sys.argv[1]))
+#scenario = util.readScenario(str(sys.argv[1]))
 scenario = Scenario(); print("Scenario created.")
 scenario.setMapWidth();
 
 agentDB = scenario.createAgentDB(); print("Agent database created.")
-IDToAgent = u.mapIDToAgent(agentDB)
+IDToAgent = util.mapIDToAgent(agentDB)
 print(IDToAgent[368835])
 
 scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
