@@ -37,13 +37,22 @@ for time in range(0,35712):
         elapsedTime = 0.0
 
     start_time = TIME.time()
+
+    activeAgents = list()
     for agent in agentDB:
+        # During nesting time, if the agent is proper nesting habitat, attempt a nest
         if availableNests > 0 and nestMakingTime == True:
             if scenario.isNestHabitat(agent):
                 if agent.attemptNest(availableNests, time) == True:
                     availableNests -= 1
                     scenario.updateNestingHabitat(agent.getAgentID())
 
+        # While iterating through all agentDB, if we encounter a nest or non-empty
+        # agent, append it to the active agents list to run though later
+        if agent.isNest() == True or agent.isEmpty() == False:
+            activeAgents.append(agent)
+
+    for agent in activeAgents:
         if agent.isNest() == True:
             if breedingTime == True:
                 agent.layEgg(time)
