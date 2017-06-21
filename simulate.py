@@ -15,7 +15,6 @@ scenario.setMapWidth();
 
 agentDB = scenario.createAgentDB(); print("Agent database created.")
 IDToAgent = util.mapIDToAgent(agentDB)
-print(IDToAgent[368835])
 
 scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
 
