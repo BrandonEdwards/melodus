@@ -86,7 +86,7 @@ class Agent(object):
         moveLocationIndex = -1
         for i in range(0, len(moveLocationArray[0])):
             if moveLocationArray[0][i] == 1:
-                moveLocationIndex = moveLocationArray[0][i]
+                moveLocationIndex = i
                 break
 
         if moveLocationIndex == -1:
