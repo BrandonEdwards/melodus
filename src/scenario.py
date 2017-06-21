@@ -1,5 +1,6 @@
 from .agent import Agent
 import numpy as np
+import src.utilities as util
 import math
 
 class Scenario(object):
@@ -52,15 +53,7 @@ class Scenario(object):
 				self.nestHabitatList.add(agent.getAgentID())
 
 	def updateNestingHabitat(self, ID):
-		#See "General Map Matrix" page in your labbook for details on this weird thing
-		#You probably want to make this into a more generic function for later use
-		lower = -100
-		upper = lower * -1
-		toRemove = set()
-		for x in range(lower,upper):
-			for b in range(lower,upper):
-				toRemove.add(ID + (x * self.mapWidth) + b)
-
+		toRemove = set(util.createMapMatrix(ID, 100, self.mapWidth))
 		self.nestHabitatList = self.nestHabitatList.difference(toRemove)
 
 	def isNestHabitat(self, agent):
