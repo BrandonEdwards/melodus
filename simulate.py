@@ -26,10 +26,10 @@ nestMakingTime = True
 availableNests = int(totalAdults / 2)
 currentTime = 1
 breedingTime = True
-foragingTime = True
+foragingTime = False
 
 print("Beginning simulation.")
-for time in range(1,35712):
+for time in range(0,35712):
     if time % 100 == 0:
         print("Current time is ", time)
 
@@ -64,6 +64,8 @@ for time in range(1,35712):
         nestMakingTime = False; print("Nest making time has ended.")
     if breedingTime == True and time > 20000:
         breedingTime = False; print("Breeding time has ended.")
+    if (time - 12) % 144 == 0:
+        foragingTime = not foragingTime
    # print(TIME.time() - start_time)
 
 #output data to files
