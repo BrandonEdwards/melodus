@@ -31,16 +31,6 @@ class Scenario(object):
 	def getHabitatVector(self):
 		return self.habitat
 
-	def readScenario(file):
-		#readfile
-		#get map
-		#get map height
-		#get inital adults
-		#get energy vector
-		#make new scenario
-		#return scenario
-		pass
-
 	def getMap(self):
 		return self.scenarioMap
 
