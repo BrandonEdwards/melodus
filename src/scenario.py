@@ -9,7 +9,7 @@ class Scenario(object):
 		self.habitat = None
 		self.mapWidth = 0
 		self.initialAdults = 2#math.ceil(np.random.normal(10,2,1))
-		self.energyVector = [0.0,0.5,0.33,1.0,0.0,0.0]
+		self.energyVector = [0.1,0.5,0.33,1.0,0.1,0.1]
 		self.nestHabitatList = set()
 
 	def createAgentDB(self):
