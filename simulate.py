@@ -6,7 +6,8 @@ import src.utilities as util
 import time as TIME
 from src.agent import Agent
 from src.scenario import Scenario
-print("Packges imported.")
+thread = sys.argv[1]
+print("Packges imported - thread ", thread)
 
 #implement this later
 #scenario = util.readScenario(str(sys.argv[1]))
@@ -33,7 +34,7 @@ print("Beginning simulation.")
 for time in range(0,35712):
     if time % 100 == 0:
         print("Current time is ", time)
-        print("It took ", elapsedTime, " seconds for the previous 100 time steps.")
+        print(thread,"- It took ", elapsedTime, " seconds for the previous 100 time steps.")
         elapsedTime = 0.0
 
     start_time = TIME.time()
@@ -70,7 +71,7 @@ for time in range(0,35712):
                 if agent.chickAtNest() == True:
                     agent.rest()
                 else:
-                    agent.findNearestNest()
+                    agent.findNearestNest(agentDB, IDToAgent, scenario.getHabitatVector(), scenario.getMapWidth())
 
     if nestMakingTime == True and time > 9000:
         nestMakingTime = False; print("Nest making time has ended.")
