@@ -17,6 +17,15 @@ class Nest(object):
 		self.hatchTime = self.eggLayingTimes[3] + (1*10)
 
 	def layEgg(self, time):
+		"""Attempt to lay an egg in the nest based on time in simulation.
+
+		Keyword arguments:
+		time 		--	Current time step in the simulation.
+
+		If the current time in the simulation is the same as the first time in
+		the eggLayingTimes list, add an egg to the nest and pop the first entry
+		from eggLayingTimes list.
+		"""
 		if len(self.eggLayingTimes) > 0:
 			if time == self.eggLayingTimes[0]:
 				self.totalEggs += 1
@@ -26,6 +35,16 @@ class Nest(object):
 				return 0
 
 	def hatch(self, time):
+		"""Attempt to hatch chicks in the nest based on time in simulation.
+
+		Keyword arguments:
+		time 		--	Current time step in the simulation.
+
+		If the current time in the simulation is the same as the expected hatch
+		time, hatch the eggs. Create a list of 4 weights normally distributed
+		about 10 with standard deviation of 2. If it is not time to hatch, return
+		None.
+		"""
 		if time == self.hatchTime:
 			return np.random.normal(10,2,4)
 		else:
