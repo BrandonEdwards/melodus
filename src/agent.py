@@ -118,5 +118,21 @@ class Agent(object):
     def rest(self):
         pass
 
-    def findNearestNest(self):
-        pass
+    def findNearestNest(self, agentDB, IDToAgent, habitatVector, mapWidth):
+        moveChoices = util.createMapMatrix(self.agentID, 200, mapWidth)
+        moveChoices = [i for i in moveChoices if habitatVector[i] > -1]
+        moveLocationIndex = -1
+        newAgentID = -1
+        for ID in moveChoices:
+            if agentDB[IDToAgent[ID]].nestInfo != None:
+                moveLocationIndex = ID
+                break
+
+        if (moveLocationIndex > -1):
+            newAgentID = moveLocationIndex
+            print("Found nest at ", agentDB[IDToAgent[newAgentID]].getAgentID())
+            agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
+            self.chickWeight = list()
+        else:
+            print("No nearby nest found")
+
