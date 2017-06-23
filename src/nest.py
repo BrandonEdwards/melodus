@@ -2,6 +2,16 @@ import numpy as np
 
 class Nest(object):
 	def __init__(self, timeCreated):
+		"""Create a new Nest obect.
+
+		Keyword arguments:
+		timeCreated 		--	Time step in simulation that nest was created
+
+		Assign time created to its corresponding attribute. Create a list of
+		egg laying times which will correspond to the current time +
+		(egg number * 576 time steps). These will be the time steps that
+		a given egg is laid. Hatch time is 27 days after the last egg is laid.
+		"""
 		self.timeCreated = timeCreated
 		self.eggLayingTimes = list()
 		self.hatchTime = 0
