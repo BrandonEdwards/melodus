@@ -51,7 +51,7 @@ class Nest(object):
 		time 		--	Current time step in the simulation.
 
 		If the current time in the simulation is the same as the expected hatch
-		time, hatch the eggs. Create a list of 4 weights normally distributed
+		time, hatch the eggs. Create a list of weights normally distributed
 		about 10 with standard deviation of 2. If it is not time to hatch, return
 		None.
 		"""
