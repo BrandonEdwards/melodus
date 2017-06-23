@@ -5,6 +5,11 @@ import math
 
 class Scenario(object):
 	def __init__(self):
+		"""Create a new Scenario object.
+
+		Expand on this. Eventually will be passed in parameters read in 
+		from a scenario file to store for the simulation.
+		"""
 		self.scenarioMap = "maps/test.csv"
 		self.habitat = None
 		self.mapWidth = 0
