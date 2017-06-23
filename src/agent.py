@@ -5,6 +5,16 @@ import src.utilities as util
 
 class Agent(object):
 	def __init__(self, ID, habitatType):
+		"""Create a new Agent object.
+
+		Keyword arguments:
+		ID 				--	index of agent in its environment
+		habitatType 	--	integer value of habitat type for the agent
+
+		Assign the ID and habitat type to the agent and assign false, empty,
+		or 0 values for the rest of the agent attributes (until I implement
+		something to do with them at the beginning of the simulation).
+		"""	
 		self.agentID = ID
 		self.habitatType = int(habitatType)
 		self.humanPresence = False
