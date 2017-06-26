@@ -12,7 +12,7 @@ print("Packges imported - thread ", thread)
 #implement this later
 #scenario = util.readScenario(str(sys.argv[1]))
 scenario = Scenario(); print("Scenario created.")
-scenario.setMapWidth();
+scenario.setMapWidth(); print("Set map width at ", scenario.getMapWidth())
 
 agentDB = scenario.createAgentDB(); print("Agent database created.")
 IDToAgent = util.mapIDToAgent(agentDB)
