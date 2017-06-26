@@ -10,11 +10,11 @@ class Scenario(object):
 		Expand on this. Eventually will be passed in parameters read in 
 		from a scenario file to store for the simulation.
 		"""
-		self.scenarioMap = "maps/test.csv"
+		self.scenarioMap = "maps/Sauble.csv"
 		self.habitat = None
 		self.mapWidth = 0
 		self.initialAdults = 2#math.ceil(np.random.normal(10,2,1))
-		self.energyVector = [0.1,0.5,0.33,1.0,0.1,0.1]
+		self.energyVector = [0.0,0.0,1.0,0.75,0.3,0.5]
 		self.nestHabitatList = set()
 
 	def createAgentDB(self):
@@ -73,10 +73,10 @@ class Scenario(object):
 		agentDB 		--	List of all agents in the simulation.
 
 		Iterate through all agents in the agentDB and add the agent ID of
-		those who are appropriate nesting habitat. For now, it is habitat 2.
+		those who are appropriate nesting habitat (open beach --> habitat 4).
 		"""
 		for agent in agentDB:
-			if agent.getHabitatType() == 2:
+			if agent.getHabitatType() == 4:
 				self.nestHabitatList.add(agent.getAgentID())
 
 	def updateNestingHabitat(self, ID):
