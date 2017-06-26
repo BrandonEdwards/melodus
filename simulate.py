@@ -6,7 +6,7 @@ import src.utilities as util
 import time as TIME
 from src.agent import Agent
 from src.scenario import Scenario
-thread = sys.argv[1]
+thread = 1#sys.argv[1]
 print("Packges imported - thread ", thread)
 
 #implement this later
@@ -40,6 +40,8 @@ for time in range(0,35712):
     start_time = TIME.time()
 
     activeAgents = list()
+
+    # Operations performed on all agents in Agent DB
     for agent in agentDB:
         # During nesting time, if the agent is proper nesting habitat, attempt a nest
         if availableNests > 0 and nestMakingTime == True:
@@ -53,6 +55,7 @@ for time in range(0,35712):
         if agent.isNest() == True or agent.isEmpty() == False:
             activeAgents.append(agent)
 
+    # Operations performed on all active agents in agent DB
     for agent in activeAgents:
         if agent.isNest() == True:
             if breedingTime == True:
