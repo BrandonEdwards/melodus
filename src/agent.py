@@ -1,5 +1,4 @@
 from .nest import Nest
-from scipy.stats import truncnorm
 import numpy as np
 import src.utilities as util
 
