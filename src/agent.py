@@ -94,6 +94,9 @@ class Agent(object):
 				self.chickWeight.append(weight)
 				
 			print("Chicks successfully hatched in agent ", self.agentID, " with weights: ", self.chickWeight)
+			return True
+
+		return False
 
 	def isHumanPresence(self):
 		"""Check if humans are present in the agent, return boolean."""
@@ -162,18 +165,18 @@ class Agent(object):
 				break
 
 		if moveLocationIndex == -1:
-			return agentDB
+			return self
 
 		newAgentID = moveChoices[moveLocationIndex]
 
 		if newAgentID == self.agentID:
 			print("No movement")
-			return agentDB
+			return self
 		
 		agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
 		self.chickWeight = list()
 
-		return agentDB
+		return agentDB[IDToAgent[newAgentID]]
 
 	def humanInAlertDistance(self):
 		"""Check if there are humans within alert distance (50m), return boolean."""
@@ -222,6 +225,8 @@ class Agent(object):
 			print("Found nest at ", agentDB[IDToAgent[newAgentID]].getAgentID())
 			agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
 			self.chickWeight = list()
+			return agentDB[IDToAgent[newAgentID]]
 		else:
 			print("No nearby nest found")
+			return self
 
