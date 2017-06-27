@@ -30,6 +30,9 @@ currentTime = 1
 breedingTime = True
 foragingTime = False
 
+#Used so we don't have to iterate through entire environment every time
+nextActiveAgents = list()
+
 print("Beginning simulation.")
 for time in range(0,35712):
     if time % 100 == 0:
@@ -39,7 +42,14 @@ for time in range(0,35712):
 
     start_time = TIME.time()
 
-    activeAgents = list()
+    print(len(nextActiveAgents))
+    if len(nextActiveAgents) != 0:
+       #  print("Here")
+        activeAgent = list()
+        activeAgents = nextActiveAgents
+        nextActiveAgents = list()
+    else:
+        activeAgents = list()
 
     # Operations performed on all agents in Agent DB
     for agent in agentDB:
@@ -49,18 +59,16 @@ for time in range(0,35712):
                 if agent.attemptNest(availableNests, time) == True:
                     availableNests -= 1
                     scenario.updateNestingHabitat(agent.getAgentID())
+                    activeAgents.append(agent)
 
-        # While iterating through all agentDB, if we encounter a nest or non-empty
-        # agent, append it to the active agents list to run though later
-        if agent.isNest() == True or agent.isEmpty() == False:
-            activeAgents.append(agent)
-
-    # Operations performed on all active agents in agent DB
     for agent in activeAgents:
-        if agent.isNest() == True:
+        if agent.isNest() == True and agent.isEmpty() == True:
             if breedingTime == True:
                 agent.layEgg(time)
+            # This will already be a part of the active agents if it hatches
             agent.checkHatchTime(time)
+            nextActiveAgents.append(agent)
+            continue
 
         if agent.isEmpty() == False:
             if agent.isHumanPresence():
@@ -68,13 +76,14 @@ for time in range(0,35712):
                 continue
             if foragingTime == True:
                 agent.forage(scenario.getEnergyVector())
-                agentDB = agent.move(agentDB, IDToAgent, scenario.getHabitatVector(), 
-                    scenario.getEnergyVector(), scenario.getMapWidth())
+                nextActiveAgents.append(agent.move(agentDB, IDToAgent, scenario.getHabitatVector(), 
+                    scenario.getEnergyVector(), scenario.getMapWidth()))
             else:
                 if agent.chickAtNest() == True:
                     agent.rest()
+                    nextActiveAgents.append(agent)
                 else:
-                    agent.findNearestNest(agentDB, IDToAgent, scenario.getHabitatVector(), scenario.getMapWidth())
+                    nextActiveAgents.append(agent.findNearestNest(agentDB, IDToAgent, scenario.getHabitatVector(), scenario.getMapWidth()))
 
     if nestMakingTime == True and time > 9000:
         nestMakingTime = False; print("Nest making time has ended.")
