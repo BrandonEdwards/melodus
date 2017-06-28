@@ -50,11 +50,11 @@ for time in range(0,35712):
         nextActiveAgents = list()
     else:
         activeAgents = list()
-
-    # Operations performed on all agents in Agent DB
-    for agent in agentDB:
-        # During nesting time, if the agent is proper nesting habitat, attempt a nest
-        if availableNests > 0 and nestMakingTime == True:
+    
+    if availableNests > 0 and nestMakingTime == True:
+        # Operations performed on all agents in Agent DB
+        for agent in agentDB:
+            # During nesting time, if the agent is proper nesting habitat, attempt a nest
             if scenario.isNestHabitat(agent):
                 if agent.attemptNest(availableNests, time) == True:
                     availableNests -= 1
