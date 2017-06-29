@@ -138,7 +138,7 @@ class Agent(object):
 
 		return agentDB[IDToAgent[newAgentID]]
 
-	def forage(self, energyVector):
+	def forage(self, energyVector, alert):
 		"""Increase weight of chicks in given agent based on habitat type.
 
 		Keyword arguments:
@@ -150,7 +150,7 @@ class Agent(object):
 		with habitat type.
 		"""
 		if len(self.chickWeight) > 0:
-			if self.humanInAlertDistance() == False:
+			if alert == False:
 				#multiply all elements in chick energy by energy gain
 				self.chickWeight = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
 			else:
@@ -210,8 +210,14 @@ class Agent(object):
 
 		return agentDB[IDToAgent[newAgentID]]
 
-	def humanInAlertDistance(self):
+	def humanInAlertDistance(self, agentDB, IDToAgent, habitatVector, mapWidth):
 		"""Check if there are humans within alert distance (50m), return boolean."""
+		locations = util.createMapMatrix(self.agentID, 50, mapWidth)
+		locations = [i for i in locations if habitatVector[i] > -1]
+		locationsHumans = [agentDB[IDToAgent[i]].humanPresence for i in locations]
+
+		if True in locationsHumans:
+			return True
 		return False
 
 	def chickAtNest(self):
