@@ -72,7 +72,8 @@ for time in range(0,35712):
 
         if agent.isEmpty() == False:
             if agent.isHumanPresence():
-                agent.flush();
+                nextActiveAgents.append(agent.flush(agentDB, IDToAgent, scenario.getHabitatVector(), 
+                    scenario.getMapWidth()));
                 continue
             if foragingTime == True:
                 agent.forage(scenario.getEnergyVector())
