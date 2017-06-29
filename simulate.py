@@ -80,7 +80,9 @@ for time in range(0,35712):
                     scenario.getMapWidth()));
                 continue
             if foragingTime == True:
-                agent.forage(scenario.getEnergyVector())
+                alert = agent.humanInAlertDistance(agentDB, IDToAgent, scenario.getHabitatVector(),
+                        scenario.getMapWidth())
+                agent.forage(scenario.getEnergyVector(), alert)
                 nextActiveAgents.append(agent.move(agentDB, IDToAgent, scenario.getHabitatVector(), 
                     scenario.getEnergyVector(), scenario.getMapWidth()))
             else:
