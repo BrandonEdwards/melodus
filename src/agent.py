@@ -102,9 +102,40 @@ class Agent(object):
 		"""Check if humans are present in the agent, return boolean."""
 		return self.humanPresence
 
-	def flush(self):
+	def flush(self, agentDB, IDToAgent, habitatVector, mapWidth):
 		"""If humans are present in cell, move chicks away from humans."""
-		pass
+		moveChoices = util.createMapMatrix(self.agentID, 10, mapWidth)
+
+		#Get rid of all move choices that are out of environment (if necessary)
+		moveChoices = [i for i in moveChoices if habitatVector[i] > -1]
+
+		# Create a matrix of 1s if humans are not in agent and 0s if humans are in agent
+		moveChoicesHumans = [int(not agentDB[IDToAgent[i]].humanPresence) for i in moveChoices]
+
+		#Normalize the movement choice energy vectors
+		probabilities = [float(i)/sum(moveChoicesHumans) for i in moveChoicesHumans]
+
+		#Pull from multinomial distribution and get index of the success (i.e. new agent).
+		moveLocationArray = np.random.multinomial(1, probabilities, size = 1)
+		moveLocationIndex = -1
+		for i in range(0, len(moveLocationArray[0])):
+			if moveLocationArray[0][i] == 1:
+				moveLocationIndex = i
+				break
+
+		if moveLocationIndex == -1:
+			return self
+
+		newAgentID = moveChoices[moveLocationIndex]
+
+		if newAgentID == self.agentID:
+			#print("No movement")
+			return self
+		
+		agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
+		self.chickWeight = list()
+
+		return agentDB[IDToAgent[newAgentID]]
 
 	def forage(self, energyVector):
 		"""Increase weight of chicks in given agent based on habitat type.
