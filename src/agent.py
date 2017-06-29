@@ -1,5 +1,6 @@
 from .nest import Nest
 import numpy as np
+import random
 import src.utilities as util
 
 class Agent(object):
@@ -16,7 +17,7 @@ class Agent(object):
 		"""	
 		self.agentID = ID
 		self.habitatType = int(habitatType)
-		self.humanPresence = False
+		self.humanPresence = int(random.choice([True,False]))
 		self.predatorPresence = False
 		self.nestInfo = None
 		self.chickWeight = list()
@@ -201,7 +202,7 @@ class Agent(object):
 		newAgentID = moveChoices[moveLocationIndex]
 
 		if newAgentID == self.agentID:
-			print("No movement")
+			#print("No movement")
 			return self
 		
 		agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
@@ -253,11 +254,11 @@ class Agent(object):
 				break
 
 		if (newAgentID > -1):
-			print("Found nest at ", agentDB[IDToAgent[newAgentID]].getAgentID())
+			# print("Found nest at ", agentDB[IDToAgent[newAgentID]].getAgentID())
 			agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
 			self.chickWeight = list()
 			return agentDB[IDToAgent[newAgentID]]
 		else:
-			print("No nearby nest found")
+			# print("No nearby nest found")
 			return self
 
