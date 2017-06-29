@@ -185,7 +185,7 @@ class Agent(object):
 		moveChoicesEnergy = [energyVector[i] for i in moveChoicesHabitat]
 
 		#Normalize the movement choice energy vectors
-		probabilities = [float(i)/sum(moveChoices) for i in moveChoices]
+		probabilities = [float(i)/sum(moveChoicesEnergy) for i in moveChoicesEnergy]
 
 		#Pull from multinomial distribution and get index of the success (i.e. new agent).
 		moveLocationArray = np.random.multinomial(1, probabilities, size = 1)
