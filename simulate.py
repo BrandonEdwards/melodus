@@ -35,14 +35,18 @@ nextActiveAgents = list()
 
 print("Beginning simulation.")
 for time in range(0,35712):
-    if time % 100 == 0:
-        print("Current time is ", time)
-        print(thread,"- It took ", elapsedTime, " seconds for the previous 100 time steps.")
+    if time % 288 == 0:
+        print("Current day is ", time / 288)
+        print(thread,"- It took ", elapsedTime, " seconds for the previous day.")
+        print("Current chick weights are as follows:")
+        for agent in nextActiveAgents:
+            print(agent.chickWeight)
+        print()
         elapsedTime = 0.0
 
     start_time = TIME.time()
 
-    print(len(nextActiveAgents))
+    #print(len(nextActiveAgents))
     if len(nextActiveAgents) != 0:
        #  print("Here")
         activeAgent = list()
