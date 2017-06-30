@@ -23,21 +23,6 @@ class Agent(object):
 		self.chickWeight = list()
 		self.closestNest = 0
 
-	def getAgentID(self):
-		"""Return agent ID (integer) of the given agent."""
-		return self.agentID
-
-	def getHabitatType(self):
-		"""Return habitat type (integer) of the given agent."""
-		return self.habitatType
-
-	def isEmpty(self):
-		"""Return a boolean value as to whether the agent is empty."""
-		if len(self.chickWeight) == 0:
-			return True
-		else:
-			return False
-
 	def attemptNest(self, availableNests, time):
 		"""Attempt a nest and return boolean value on success or failure.
 
@@ -61,23 +46,6 @@ class Agent(object):
 		else:
 			return False
 
-	def isNest(self):
-		"""Check if agent contains a nest and return boolean value."""
-		if self.nestInfo == None:
-			return False
-		else:
-			return True
-
-	def layEgg(self, time):
-		"""Attempt to lay an egg based on time in simulation.
-
-		Keyword arguments:
-		time 			--	Current time in simulation. Used to match up with egg laying
-							times of the nest.
-		"""
-		if self.nestInfo.layEgg(time) == 1:
-			print("Laid egg at nest in agent ", self.agentID)
-
 	def checkHatchTime(self, time):
 		"""Check if eggs should hatch based on time in simulation.
 
@@ -99,9 +67,49 @@ class Agent(object):
 
 		return False
 
-	def isHumanPresence(self):
-		"""Check if humans are present in the agent, return boolean."""
-		return self.humanPresence
+	def chickAtNest(self):
+		"""Check if there are chicks in an agent that is not a nest. Return boolean."""
+		if self.nestInfo == None and len(self.chickWeight) > 0:
+			return False
+		else:
+			return True
+
+	def findNearestNest(self, agentDB, IDToAgent, habitatVector, mapWidth):
+		"""Find location of nearest nest and move chicks to that agent.
+
+		Keyword arguments:
+		agentDB			--	List of all agents in the simulation
+		IDToAgent		--	Dictionary mapping agent IDs to their index in agentDB
+		habitatVector	--	1D list of all habitat types contained in environment (row major)
+		mapWidth		--	Width of the total simulation environment
+
+		Create a map matrix 200 cells wide. After ridding of non-environment cells,
+		check for any cells containing a nest. If a nest exists, move chick vector
+		to that agent.
+
+		TO DO:
+		If no nest exist, find agent that would bring the chicks closest to a nest
+		to try again next time step. One way to implement this would be to store
+		a "nearest nest" attribute in each given agent, calculated at the beginning
+		of the simulation when nesting occurs, that assists in moving chicks in the
+		direction of the nearest nest.
+		"""
+		moveChoices = util.createMapMatrix(self.agentID, 200, mapWidth)
+		moveChoices = [i for i in moveChoices if habitatVector[i] > -1]
+		newAgentID = -1
+		for ID in moveChoices:
+			if agentDB[IDToAgent[ID]].nestInfo != None:
+				newAgentID = ID
+				break
+
+		if (newAgentID > -1):
+			# print("Found nest at ", agentDB[IDToAgent[newAgentID]].getAgentID())
+			agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
+			self.chickWeight = list()
+			return agentDB[IDToAgent[newAgentID]]
+		else:
+			# print("No nearby nest found")
+			return self
 
 	def flush(self, agentDB, IDToAgent, habitatVector, mapWidth):
 		"""If humans are present in cell, move chicks away from humans."""
@@ -155,6 +163,52 @@ class Agent(object):
 				self.chickWeight = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
 			else:
 				self.chickWeight = [i + (0.0035 * energyVector[self.habitatType]) for i in self.chickWeight]
+
+	def getAgentID(self):
+		"""Return agent ID (integer) of the given agent."""
+		return self.agentID
+
+	def getHabitatType(self):
+		"""Return habitat type (integer) of the given agent."""
+		return self.habitatType
+
+	def humanInAlertDistance(self, agentDB, IDToAgent, habitatVector, mapWidth):
+		"""Check if there are humans within alert distance (50m), return boolean."""
+		locations = util.createMapMatrix(self.agentID, 50, mapWidth)
+		locations = [i for i in locations if habitatVector[i] > -1]
+		locationsHumans = [agentDB[IDToAgent[i]].humanPresence for i in locations]
+
+		if True in locationsHumans:
+			return True
+		return False
+
+	def isEmpty(self):
+		"""Return a boolean value as to whether the agent is empty."""
+		if len(self.chickWeight) == 0:
+			return True
+		else:
+			return False
+
+	def isHumanPresence(self):
+		"""Check if humans are present in the agent, return boolean."""
+		return self.humanPresence
+
+	def isNest(self):
+		"""Check if agent contains a nest and return boolean value."""
+		if self.nestInfo == None:
+			return False
+		else:
+			return True
+
+	def layEgg(self, time):
+		"""Attempt to lay an egg based on time in simulation.
+
+		Keyword arguments:
+		time 			--	Current time in simulation. Used to match up with egg laying
+							times of the nest.
+		"""
+		if self.nestInfo.layEgg(time) == 1:
+			print("Laid egg at nest in agent ", self.agentID)
 
 	def move(self, agentDB, IDToAgent, habitatVector, energyVector, mapWidth):
 		"""Attempt to move chicks to different agent to forage.
@@ -210,61 +264,6 @@ class Agent(object):
 
 		return agentDB[IDToAgent[newAgentID]]
 
-	def humanInAlertDistance(self, agentDB, IDToAgent, habitatVector, mapWidth):
-		"""Check if there are humans within alert distance (50m), return boolean."""
-		locations = util.createMapMatrix(self.agentID, 50, mapWidth)
-		locations = [i for i in locations if habitatVector[i] > -1]
-		locationsHumans = [agentDB[IDToAgent[i]].humanPresence for i in locations]
-
-		if True in locationsHumans:
-			return True
-		return False
-
-	def chickAtNest(self):
-		"""Check if there are chicks in an agent that is not a nest. Return boolean."""
-		if self.nestInfo == None and len(self.chickWeight) > 0:
-			return False
-		else:
-			return True
-
 	def rest(self):
 		"""Check for humans in a reduced alert distance"""
 		pass
-
-	def findNearestNest(self, agentDB, IDToAgent, habitatVector, mapWidth):
-		"""Find location of nearest nest and move chicks to that agent.
-
-		Keyword arguments:
-		agentDB			--	List of all agents in the simulation
-		IDToAgent		--	Dictionary mapping agent IDs to their index in agentDB
-		habitatVector	--	1D list of all habitat types contained in environment (row major)
-		mapWidth		--	Width of the total simulation environment
-
-		Create a map matrix 200 cells wide. After ridding of non-environment cells,
-		check for any cells containing a nest. If a nest exists, move chick vector
-		to that agent.
-
-		TO DO:
-		If no nest exist, find agent that would bring the chicks closest to a nest
-		to try again next time step. One way to implement this would be to store
-		a "nearest nest" attribute in each given agent, calculated at the beginning
-		of the simulation when nesting occurs, that assists in moving chicks in the
-		direction of the nearest nest.
-		"""
-		moveChoices = util.createMapMatrix(self.agentID, 200, mapWidth)
-		moveChoices = [i for i in moveChoices if habitatVector[i] > -1]
-		newAgentID = -1
-		for ID in moveChoices:
-			if agentDB[IDToAgent[ID]].nestInfo != None:
-				newAgentID = ID
-				break
-
-		if (newAgentID > -1):
-			# print("Found nest at ", agentDB[IDToAgent[newAgentID]].getAgentID())
-			agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
-			self.chickWeight = list()
-			return agentDB[IDToAgent[newAgentID]]
-		else:
-			# print("No nearby nest found")
-			return self
-
