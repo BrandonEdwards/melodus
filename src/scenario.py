@@ -47,20 +47,21 @@ class Scenario(object):
 
 		return agents
 
+	def getEnergyVector(self):
+		"""Return the habitat-indexed energy vector for the simulation."""
+		return self.energyVector
+
 	def getHabitatVector(self):
 		"""Return list of habitat types for each environment cell (agent)."""
 		return self.habitat
 
+	def getInitialAdults(self):
+		"""Return total number of adults that start the simulation."""
+		return self.initialAdults
+
 	def getMap(self):
 		"""Return the path to the map used for a particular simulation."""
 		return self.scenarioMap
-
-	def setMapWidth(self):
-		"""Set the map width attribute based on the width of the environment."""
-		mapLocation = np.genfromtxt(self.scenarioMap, delimiter=",")
-
-		for element in mapLocation[0]:
-			self.mapWidth += 1
 
 	def getMapWidth(self):
 		"""Return width of the environment."""
@@ -79,6 +80,17 @@ class Scenario(object):
 			if agent.getHabitatType() == 4:
 				self.nestHabitatList.add(agent.getAgentID())
 
+	def isNestHabitat(self, agent):
+		"""Check if agent is contained in the suitable nesting habitat list, return boolean"""
+		return agent.getAgentID() in self.nestHabitatList
+
+	def setMapWidth(self):
+		"""Set the map width attribute based on the width of the environment."""
+		mapLocation = np.genfromtxt(self.scenarioMap, delimiter=",")
+
+		for element in mapLocation[0]:
+			self.mapWidth += 1
+
 	def updateNestingHabitat(self, ID):
 		"""Remove nest location and surround agents from possible nesting habitats.
 
@@ -91,15 +103,3 @@ class Scenario(object):
 		"""
 		toRemove = set(util.createMapMatrix(ID, 100, self.mapWidth))
 		self.nestHabitatList = self.nestHabitatList.difference(toRemove)
-
-	def isNestHabitat(self, agent):
-		"""Check if agent is contained in the suitable nesting habitat list, return boolean"""
-		return agent.getAgentID() in self.nestHabitatList
-
-	def getInitialAdults(self):
-		"""Return total number of adults that start the simulation."""
-		return self.initialAdults
-
-	def getEnergyVector(self):
-		"""Return the habitat-indexed energy vector for the simulation."""
-		return self.energyVector

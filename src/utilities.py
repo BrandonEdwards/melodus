@@ -1,41 +1,5 @@
 import math
 
-def readScenario(file):
-	"""Read scenario file and create scenario based on information in file.
-
-	Keyword arguments:
-	file 			--	Path to scenario file.
-
-	Not yet implemented. Will serve to parse a scenario file and pull out information
-	regarding the scenario, including habitat type, energetics, size of environment, etc.
-	"""
-	#readfile
-	#get map
-	#get map height
-	#get inital adults
-	#get energy vector
-	#make new scenario
-	#return scenario
-	pass
-
-def timeToString(time):
-	"""Return formatted time string based on time step in simulation.
-
-	Keyword arguments:
-	time 			--	Current time step in simulation.
-
-	The simulations temporal resolution gives time steps of 5 minutes. This converts
-	the current time step into total minutes to calculate the current day, hour, and minute
-	of the simulation.
-	"""
-	mins = time * 5;
-	hours = math.floor(mins / 60)
-	days = math.floor(hours / 24)
-
-	string = "Day " + (days + 1) + " at time " + (hours - (days * 24)) + ":" + (mins - (hours * 60))
-
-	return string
-
 def createMapMatrix(ID, radius, mapWidth):
 	"""Return a matrix of surrounding agent IDs about a given agent.
 
@@ -74,3 +38,39 @@ def mapIDToAgent(agentDB):
 		agentNum += 1
 
 	return IDToAgent
+	
+def readScenario(file):
+	"""Read scenario file and create scenario based on information in file.
+
+	Keyword arguments:
+	file 			--	Path to scenario file.
+
+	Not yet implemented. Will serve to parse a scenario file and pull out information
+	regarding the scenario, including habitat type, energetics, size of environment, etc.
+	"""
+	#readfile
+	#get map
+	#get map height
+	#get inital adults
+	#get energy vector
+	#make new scenario
+	#return scenario
+	pass
+
+def timeToString(time):
+	"""Return formatted time string based on time step in simulation.
+
+	Keyword arguments:
+	time 			--	Current time step in simulation.
+
+	The simulations temporal resolution gives time steps of 5 minutes. This converts
+	the current time step into total minutes to calculate the current day, hour, and minute
+	of the simulation.
+	"""
+	mins = time * 5;
+	hours = math.floor(mins / 60)
+	days = math.floor(hours / 24)
+
+	string = "Day " + (days + 1) + " at time " + (hours - (days * 24)) + ":" + (mins - (hours * 60))
+
+	return string

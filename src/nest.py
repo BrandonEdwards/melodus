@@ -26,6 +26,22 @@ class Nest(object):
 		#use the following line only for quick testing purposes
 		self.hatchTime = self.eggLayingTimes[3] + (1*10)
 
+	def hatch(self, time):
+		"""Attempt to hatch chicks in the nest based on time in simulation.
+
+		Keyword arguments:
+		time 		--	Current time step in the simulation.
+
+		If the current time in the simulation is the same as the expected hatch
+		time, hatch the eggs. Create a list of weights normally distributed
+		about 10 with standard deviation of 2. If it is not time to hatch, return
+		None.
+		"""
+		if time == self.hatchTime:
+			return np.random.normal(10,2,self.totalEggs)
+		else:
+			return None
+
 	def layEgg(self, time):
 		"""Attempt to lay an egg in the nest based on time in simulation.
 
@@ -43,19 +59,3 @@ class Nest(object):
 				return 1
 			else:
 				return 0
-
-	def hatch(self, time):
-		"""Attempt to hatch chicks in the nest based on time in simulation.
-
-		Keyword arguments:
-		time 		--	Current time step in the simulation.
-
-		If the current time in the simulation is the same as the expected hatch
-		time, hatch the eggs. Create a list of weights normally distributed
-		about 10 with standard deviation of 2. If it is not time to hatch, return
-		None.
-		"""
-		if time == self.hatchTime:
-			return np.random.normal(10,2,self.totalEggs)
-		else:
-			return None
