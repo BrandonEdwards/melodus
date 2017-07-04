@@ -17,7 +17,7 @@ class Agent(object):
 		"""	
 		self.agentID = ID
 		self.habitatType = int(habitatType)
-		self.humanPresence = int(random.choice([True,False]))
+		self.humanPresence = False#int(random.choice([True,False]))
 		self.predatorPresence = False
 		self.nestInfo = None
 		self.chickWeight = list()
