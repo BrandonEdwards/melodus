@@ -2,6 +2,7 @@
 
 import numpy as np
 import sys
+import csv
 import src.utilities as util
 import time as TIME
 from src.agent import Agent
@@ -34,15 +35,31 @@ foragingTime = False
 nextActiveAgents = list()
 
 print("Beginning simulation.")
-for time in range(0,35712):
+for time in range(0,8640):#35712):
     if time % 288 == 0:
-        print("Current day is ", time / 288)
+        totalChickWeights = list()
+        output = list()
+
+        day = time / 288
+        print("Current day is ", day)
         print(thread,"- It took ", elapsedTime, " seconds for the previous day.")
         print("Current chick weights are as follows:")
+
         for agent in nextActiveAgents:
             print(agent.chickWeight)
+            totalChickWeights.extend(agent.chickWeight)
+
         print()
         elapsedTime = 0.0
+        if (time > 0):
+            output.append(day)
+            output.append(len(totalChickWeights))
+            output.extend(totalChickWeights)
+            output.append(sum(totalChickWeights) / len(totalChickWeights))
+
+            with open("testResultsNoHumans.csv", "a") as f:
+                w = csv.writer(f)
+                w.writerow(output)
 
     start_time = TIME.time()
 
