@@ -10,11 +10,11 @@ class Scenario(object):
 		Expand on this. Eventually will be passed in parameters read in 
 		from a scenario file to store for the simulation.
 		"""
-		self.scenarioMap = "maps/Sauble.csv"
+		self.scenarioMap = "maps/SaubleUpperHalf.csv"
 		self.habitat = None
 		self.mapWidth = 0
 		self.initialAdults = 2#math.ceil(np.random.normal(10,2,1))
-		self.energyVector = [0.0,0.0,1.0,0.75,0.3,0.5]
+		self.energyVector = [0.0,0.0,1.0,1.0,0.5,0.75]
 		self.nestHabitatList = set()
 
 	def createAgentDB(self):
