@@ -157,12 +157,13 @@ class Agent(object):
 		vector by full amount. Get habitat type energy multiplier by indexing energyVector
 		with habitat type.
 		"""
+		base = 0.012
 		if len(self.chickWeight) > 0:
 			if alert == False:
 				#multiply all elements in chick energy by energy gain
-				self.chickWeight = [i + (0.007 * energyVector[self.habitatType]) for i in self.chickWeight]
+				self.chickWeight = [i + (base * energyVector[self.habitatType]) for i in self.chickWeight]
 			else:
-				self.chickWeight = [i + (0.0035 * energyVector[self.habitatType]) for i in self.chickWeight]
+				self.chickWeight = [i + ((base / 2) * energyVector[self.habitatType]) for i in self.chickWeight]
 
 	def getAgentID(self):
 		"""Return agent ID (integer) of the given agent."""
