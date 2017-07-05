@@ -38,7 +38,7 @@ class Nest(object):
 		None.
 		"""
 		if time == self.hatchTime:
-			return np.random.normal(10,2,self.totalEggs)
+			return np.random.normal(5,0.5,self.totalEggs)
 		else:
 			return None
 
