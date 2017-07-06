@@ -58,7 +58,7 @@ class Agent(object):
 		weight of the current agent.
 		"""
 		weights = self.nestInfo.hatch(time)
-		if weights != None:
+		if len(weights) > 0:
 			for weight in weights:
 				self.chickWeight.append(weight)
 				
