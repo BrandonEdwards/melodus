@@ -40,7 +40,7 @@ class Nest(object):
 		if time == self.hatchTime:
 			return np.random.normal(5,0.5,self.totalEggs)
 		else:
-			return None
+			return list()
 
 	def layEgg(self, time):
 		"""Attempt to lay an egg in the nest based on time in simulation.
