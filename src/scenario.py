@@ -13,7 +13,7 @@ class Scenario(object):
 		self.scenarioMap = "maps/SaubleUpperHalf.csv"
 		self.habitat = None
 		self.mapWidth = 0
-		self.initialAdults = 2#math.ceil(np.random.normal(10,2,1))
+		self.initialAdults = math.ceil(np.random.normal(6,2,1))
 		self.energyVector = [0.0,0.0,1.0,1.0,0.5,0.75]
 		self.nestHabitatList = set()
 
