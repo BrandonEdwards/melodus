@@ -38,8 +38,11 @@ class IO(object):
 	def updateChickWeight(self, day, totalChickWeights):
 		weightString = ",".join(str(i) for i in totalChickWeights)
 
-		# Append information to chickWeight Data frame (hopefully)
-		self.chickWeightData = self.chickWeightData.append({'Day':day, 'Num.Chicks':len(totalChickWeights),
-			'Weight':weightString,
-			'Mean.Weight':(sum(totalChickWeights)/len(totalChickWeights))}, 
-			ignore_index=True)
+		meanWeight = 0
+		if len(totalChickWeights) > 0:
+			meanWeight = sum(totalChickWeights)/len(totalChickWeights)
+			# Append information to chickWeight Data frame (hopefully)
+			self.chickWeightData = self.chickWeightData.append({'Day':day, 'Num.Chicks':len(totalChickWeights),
+				'Weight':weightString,
+				'Mean.Weight':meanWeight}, 
+				ignore_index=True)
