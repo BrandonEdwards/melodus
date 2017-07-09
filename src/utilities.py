@@ -1,3 +1,12 @@
+"""
+	Package: 		melodus
+	File:			utilities.py
+	Author:			Brandon Edwards
+	Created:		June 2017
+	
+	Utility/helper functions for the agent database.
+"""
+
 import math
 
 def createMapMatrix(ID, radius, mapWidth):

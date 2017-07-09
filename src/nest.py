@@ -1,3 +1,12 @@
+"""
+	Package: 		melodus
+	File:			nest.py
+	Author:			Brandon Edwards
+	Created:		May 2017
+	
+	Class and associated methods for simulated nests.
+"""
+
 import numpy as np
 
 class Nest(object):

@@ -1,5 +1,13 @@
 #!/usr/bin/python3
 
+"""
+    Package:        melodus
+    File:           simulate.py
+    Author:         Brandon Edwards
+    Created:        May 2017
+    
+    Script to drive a given simulation.
+"""
 import numpy as np
 import pandas as pd
 import sys

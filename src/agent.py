@@ -1,3 +1,12 @@
+"""
+	Package: 		melodus
+	File:			agent.py
+	Author:			Brandon Edwards
+	Created:		May 2017
+	
+	Class and associated methods for agents used by other functions.
+"""
+
 from .nest import Nest
 import numpy as np
 import random

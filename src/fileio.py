@@ -1,3 +1,12 @@
+"""
+	Package: 		melodus
+	File:			fileio.py
+	Author:			Brandon Edwards
+	Created:		July 2017
+	
+	Class and associated methods for outputting results from model.
+"""
+
 import numpy as np
 import pandas as pd
 import os

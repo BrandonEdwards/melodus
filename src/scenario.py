@@ -1,3 +1,13 @@
+"""
+	Package: 		melodus
+	File:			scenario.py
+	Author:			Brandon Edwards
+	Created:		May 2017
+	
+	Class and associated methods for dealing with what scenario
+	the model will be simulating.
+"""
+
 from .agent import Agent
 import numpy as np
 import src.utilities as util
