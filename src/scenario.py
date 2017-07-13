@@ -14,13 +14,14 @@ import src.utilities as util
 import math
 
 class Scenario(object):
-	def __init__(self):
+	def __init__(self, anthro):
 		"""Create a new Scenario object.
 
 		Expand on this. Eventually will be passed in parameters read in 
 		from a scenario file to store for the simulation.
 		"""
 		self.scenarioMap = "maps/SaubleUpperHalf.csv"
+		self.anthro = anthro
 		self.habitat = None
 		self.mapWidth = 0
 		self.initialAdults = math.ceil(np.random.normal(6,2,1))
@@ -53,7 +54,7 @@ class Scenario(object):
 
 		for ID in range(0,len(self.habitat)):
 			if self.habitat[ID] >= 0:
-				agents.append(Agent(ID, self.habitat[ID]))
+				agents.append(Agent(ID, self.habitat[ID], self.anthro))
 
 		return agents
 
