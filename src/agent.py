@@ -13,7 +13,7 @@ import random
 import src.utilities as util
 
 class Agent(object):
-	def __init__(self, ID, habitatType):
+	def __init__(self, ID, habitatType, anthro):
 		"""Create a new Agent object.
 
 		Keyword arguments:
@@ -26,7 +26,7 @@ class Agent(object):
 		"""	
 		self.agentID = ID
 		self.habitatType = int(habitatType)
-		self.humanPresence = False#int(random.choice([True,False]))
+		self.humanPresence = bool(np.random.binomial(1,(anthro / 100),1))#False#int(random.choice([True,False]))
 		self.predatorPresence = False
 		self.nestInfo = None
 		self.chickWeight = list()
@@ -248,6 +248,12 @@ class Agent(object):
 
 		#Convert all habitat types to energyVectors
 		moveChoicesEnergy = [energyVector[i] for i in moveChoicesHabitat]
+
+		moveChoicesHumans = [int(not agentDB[IDToAgent[i]].humanPresence) for i in moveChoices]
+
+		#Get rid of move choices that have humans
+		for i in range(0, len(moveChoicesEnergy)):
+			moveChoicesEnergy[i] = moveChoicesEnergy[i] * moveChoicesHumans[i]
 
 		#Normalize the movement choice energy vectors
 		probabilities = [float(i)/sum(moveChoicesEnergy) for i in moveChoicesEnergy]
