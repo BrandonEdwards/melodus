@@ -19,13 +19,14 @@ from src.scenario import Scenario
 from src.fileio import IO
 
 thread = sys.argv[1]
+anthro = int(sys.argv[2])
 print("Packges imported - thread ", thread)
 
 io = IO()
 
 #implement this later
 #scenario = util.readScenario(str(sys.argv[1]))
-scenario = Scenario(); print("Scenario created.")
+scenario = Scenario(anthro); print("Scenario created.")
 scenario.setMapWidth(); print("Set map width at ", scenario.getMapWidth())
 
 agentDB = scenario.createAgentDB(); print("Agent database created.")
@@ -98,7 +99,7 @@ for time in range(0,9000):#35712):
                 'Mean.Weight':(sum(totalChickWeights)/len(totalChickWeights))}, 
                 ignore_index=True)
             '''
-            io.updateChickWeight(day, totalChickWeights)
+            io.updateChickWeight(day, totalChickWeights, anthro)
             #print(chickWeightData)
             #filename = thread + "testResultsNoHumans" + "10" + ".csv"
             #with open(filename, "a") as f:
