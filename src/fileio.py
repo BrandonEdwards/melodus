@@ -15,7 +15,7 @@ import time
 class IO(object):
 	def __init__(self):
 		self.chickWeightData = pd.DataFrame(np.zeros(0, dtype=[('Day', int), ('Num.Chicks', int),
-								('Weight', str), ('Mean.Weight', float)]))
+								('Weight', str), ('Mean.Weight', float), ('Anthro', int)]))
 
 	def createOutputDir(self):
 		self.ensureResultsDir()
@@ -44,7 +44,7 @@ class IO(object):
 
 		self.chickWeightData.to_csv(directory + "chickWeights.csv", index = False)
 
-	def updateChickWeight(self, day, totalChickWeights):
+	def updateChickWeight(self, day, totalChickWeights, anthro):
 		weightString = ",".join(str(i) for i in totalChickWeights)
 
 		meanWeight = 0
@@ -52,6 +52,5 @@ class IO(object):
 			meanWeight = sum(totalChickWeights)/len(totalChickWeights)
 			# Append information to chickWeight Data frame (hopefully)
 			self.chickWeightData = self.chickWeightData.append({'Day':day, 'Num.Chicks':len(totalChickWeights),
-				'Weight':weightString,
-				'Mean.Weight':meanWeight}, 
+				'Weight':weightString, 'Mean.Weight':meanWeight, 'Anthro':anthro}, 
 				ignore_index=True)
