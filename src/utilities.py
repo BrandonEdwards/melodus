@@ -8,6 +8,18 @@
 """
 
 import math
+import numpy as np
+
+def createHabitat(scenarioMap):
+	habitat = (np.genfromtxt(scenarioMap, delimiter=",")).astype(int)
+
+	#Pad habitat to avoid out of bounds errors for map matrices
+	habitat = np.pad(habitat, 200, mode = 'constant', constant_values = -1)
+
+	#Flatten habitat to iterate through
+	habitat = habitat.flatten()
+
+	return habitat
 
 def createMapMatrix(ID, radius, mapWidth):
 	"""Return a matrix of surrounding agent IDs about a given agent.
@@ -57,14 +69,28 @@ def readScenario(file):
 	Not yet implemented. Will serve to parse a scenario file and pull out information
 	regarding the scenario, including habitat type, energetics, size of environment, etc.
 	"""
-	#readfile
-	#get map
-	#get map height
-	#get inital adults
-	#get energy vector
-	#make new scenario
-	#return scenario
-	pass
+	lines = list()
+
+	with open(file) as f:
+		for line in f:
+			lines.append(line)
+
+	scenarioMap = lines[0].split()[1]
+	habitat = createHabitat(scenarioMap)
+	mapWidth = setMapWidth(scenarioMap); print(mapWidth)
+	initialAdults = math.ceil(np.random.normal(int(lines[1].split()[1]),int(lines[2].split()[1]),1))
+	energyVector = eval(lines[3].split()[1])
+	anthro = int(lines[4].split()[1])
+
+def setMapWidth(scenarioMap):
+	"""Set the map width attribute based on the width of the environment."""
+	mapWidth = 0
+	mapLocation = np.genfromtxt(scenarioMap, delimiter=",")
+
+	for element in mapLocation[0]:
+		mapWidth += 1
+
+	return mapWidth
 
 def timeToString(time):
 	"""Return formatted time string based on time step in simulation.
