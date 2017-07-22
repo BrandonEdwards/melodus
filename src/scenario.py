@@ -14,18 +14,14 @@ import src.utilities as util
 import math
 
 class Scenario(object):
-	def __init__(self, anthro):
-		"""Create a new Scenario object.
-
-		Expand on this. Eventually will be passed in parameters read in 
-		from a scenario file to store for the simulation.
-		"""
-		self.scenarioMap = "maps/SaubleUpperHalf.csv"
+	def __init__(self, scenarioMap, anthro, habitat, mapWidth, initialAdults, energyVector):
+		"""Create a new Scenario object from parameters read from file."""
+		self.scenarioMap = scenarioMap
 		self.anthro = anthro
-		self.habitat = None
-		self.mapWidth = 0
-		self.initialAdults = math.ceil(np.random.normal(6,2,1))
-		self.energyVector = [0.0,0.0,1.0,1.0,0.5,0.75]
+		self.habitat = habitat
+		self.mapWidth = mapWidth
+		self.initialAdults = initialAdults
+		self.energyVector = energyVector
 		self.nestHabitatList = set()
 
 	def createAgentDB(self):
