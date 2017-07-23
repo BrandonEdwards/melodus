@@ -96,7 +96,7 @@ for time in range(0,9000):#35712):
                 'Mean.Weight':(sum(totalChickWeights)/len(totalChickWeights))}, 
                 ignore_index=True)
             '''
-            io.updateChickWeight(day, totalChickWeights, anthro)
+            io.updateChickWeight(day, totalChickWeights, scenario.getAnthroLevel())
             #print(chickWeightData)
             #filename = thread + "testResultsNoHumans" + "10" + ".csv"
             #with open(filename, "a") as f:
