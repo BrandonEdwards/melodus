@@ -9,6 +9,32 @@
 
 import math
 import numpy as np
+#from src.scenario import Scenario
+
+def createAgentDB(Agent, scenario):
+	"""Return a list of enviro-agents based off of a scenario map environment.
+
+	Read in habitat types from a csv file representing the environment. Each
+	entry in the file is an agent. Pad the habitat to avoid out of bounds errors.
+	200 dummy cells will pad the environment as 200 is the largest "map matrix"
+	area created in the simulation. Create agents based off of each habitat type,
+	assigning an ID (index in the habitat) and the habitat type number.
+
+	TO DO:
+	Separate the reading in of the habitat and the creation of the agentDB list
+	into two separate functions. Something like initEnvironment() and createAgentDB()
+	should do fine.
+	"""
+	agents = list()
+	habitat = scenario.getHabitatVector()
+	anthro = scenario.getAnthroLevel()
+	ID = 0
+
+	for ID in range(0,len(habitat)):
+		if habitat[ID] >= 0:
+			agents.append(Agent(ID, habitat[ID], anthro))
+
+	return agents
 
 def createHabitat(scenarioMap):
 	habitat = (np.genfromtxt(scenarioMap, delimiter=",")).astype(int)
@@ -60,7 +86,7 @@ def mapIDToAgent(agentDB):
 
 	return IDToAgent
 	
-def readScenario(file):
+def readScenario(Scenario, file):
 	"""Read scenario file and create scenario based on information in file.
 
 	Keyword arguments:
@@ -81,6 +107,8 @@ def readScenario(file):
 	initialAdults = math.ceil(np.random.normal(int(lines[1].split()[1]),int(lines[2].split()[1]),1))
 	energyVector = eval(lines[3].split()[1])
 	anthro = int(lines[4].split()[1])
+
+	return Scenario(scenarioMap, anthro, habitat, mapWidth, initialAdults, energyVector)
 
 def setMapWidth(scenarioMap):
 	"""Set the map width attribute based on the width of the environment."""
