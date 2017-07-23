@@ -61,8 +61,8 @@ def createMapMatrix(ID, radius, mapWidth):
 	of the map.
 	"""
 	mapMatrix = list()
-	for x in range((radius * -1),radius):
-		for b in range((radius * -1),radius):
+	for x in range(radius - (2 * radius), radius+1):
+		for b in range(-1 * (radius - abs(x)), (radius - abs(x))+1):
 			mapMatrix.append(ID + (x * mapWidth) + b)
 	
 	return mapMatrix
