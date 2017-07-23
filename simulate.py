@@ -84,30 +84,11 @@ for time in range(0,9000):#35712):
         nearestNestTime = 0.0
         elapsedTime = 0.0
         if (time > 0):
-            # output.append(day)
-            # output.append(len(totalChickWeights))
-            # output.extend(totalChickWeights)
-            # output.append(sum(totalChickWeights) / len(totalChickWeights))
-            '''
-            weightString = ",".join(str(i) for i in totalChickWeights)
-            # Append information to chickWeight Data frame (hopefully)
-            chickWeightData = chickWeightData.append({'Day':day, 'Num.Chicks':len(totalChickWeights),
-                'Weight':weightString,
-                'Mean.Weight':(sum(totalChickWeights)/len(totalChickWeights))}, 
-                ignore_index=True)
-            '''
             io.updateChickWeight(day, totalChickWeights, scenario.getAnthroLevel())
-            #print(chickWeightData)
-            #filename = thread + "testResultsNoHumans" + "10" + ".csv"
-            #with open(filename, "a") as f:
-            #    w = csv.writer(f)
-            #    w.writerow(output)
 
     start_time = TIME.time()
 
-    #print(len(nextActiveAgents))
     if len(nextActiveAgents) != 0:
-       #  print("Here")
         activeAgent = list()
         activeAgents = nextActiveAgents
         nextActiveAgents = list()
