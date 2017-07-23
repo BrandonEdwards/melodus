@@ -38,13 +38,6 @@ class Scenario(object):
 		into two separate functions. Something like initEnvironment() and createAgentDB()
 		should do fine.
 		"""
-		self.habitat = (np.genfromtxt(self.scenarioMap, delimiter=",")).astype(int)
-
-		#Pad habitat to avoid out of bounds errors for map matrices
-		self.habitat = np.pad(self.habitat, 200, mode = 'constant', constant_values = -1)
-
-		#Flatten habitat to iterate through
-		self.habitat = self.habitat.flatten()
 		agents = list()
 		ID = 0
 
@@ -53,6 +46,10 @@ class Scenario(object):
 				agents.append(Agent(ID, self.habitat[ID], self.anthro))
 
 		return agents
+
+	def getAnthroLevel(self):
+		"""Return the level of anthropogenic presence for the simulation."""
+		return self.anthro
 
 	def getEnergyVector(self):
 		"""Return the habitat-indexed energy vector for the simulation."""
