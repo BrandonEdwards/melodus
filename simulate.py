@@ -19,17 +19,14 @@ from src.scenario import Scenario
 from src.fileio import IO
 
 thread = sys.argv[1]
-anthro = int(sys.argv[2])
+scenarioFile = sys.argv[2]
 print("Packges imported - thread ", thread)
 
 io = IO()
 
-#implement this later
-#scenario = util.readScenario(str(sys.argv[1]))
-scenario = Scenario(anthro); print("Scenario created.")
-scenario.setMapWidth(); print("Set map width at ", scenario.getMapWidth())
+scenario = util.readScenario(Scenario, scenarioFile); print("Scenario created.")
 
-agentDB = scenario.createAgentDB(); print("Agent database created.")
+agentDB = util.createAgentDB(Agent, scenario); print("Agent database created.")
 IDToAgent = util.mapIDToAgent(agentDB)
 
 scenario.hashNestingHabitat(agentDB); print("Nesting habitat hash created.")
