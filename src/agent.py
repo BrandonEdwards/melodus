@@ -27,7 +27,7 @@ class Agent(object):
 		"""	
 		self.agentID = ID
 		self.habitatType = int(habitatType)
-		self.humanPresence = bool(np.random.binomial(1,(anthro / 10000),1))#False#int(random.choice([True,False]))
+		self.humanPresence = bool(np.random.binomial(1,(anthro / 100),1))#False#int(random.choice([True,False]))
 		self.predatorPresence = False
 		self.nestInfo = None
 		self.chickWeight = list()
@@ -197,7 +197,7 @@ class Agent(object):
 				#multiply all elements in chick energy by energy gain
 				self.chickWeight = [i + (base * energyVector[self.habitatType]) for i in self.chickWeight]
 			else:
-				self.chickWeight = [i + ((base / 1.25) * energyVector[self.habitatType]) for i in self.chickWeight]
+				self.chickWeight = [i + ((base / 2) * energyVector[self.habitatType]) for i in self.chickWeight]
 
 	def getAgentID(self):
 		"""Return agent ID (integer) of the given agent."""
@@ -217,9 +217,8 @@ class Agent(object):
 		locations = [i for i in locations if habitatVector[i] > -1]
 		locationsHumans = [agentDB[IDToAgent[i]].humanPresence for i in locations]
 
-		if True in locationsHumans:
-			return True
-		return False
+		p = locationsHumans.count(True) / len(locationsHumans)
+		return bool(np.random.binomial(1,p,1))
 
 	def isEmpty(self):
 		"""Return a boolean value as to whether the agent is empty."""
