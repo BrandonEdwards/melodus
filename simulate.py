@@ -73,8 +73,9 @@ for time in range(0,9000):#35712):
         print("Current chick weights are as follows:")
         """
         for agent in nextActiveAgents:
-            print(agent.chickWeight)
-            totalChickWeights.extend(agent.chickWeight)
+            print(agent.getChickWeights())
+            for i in agent.getChickWeights():
+                totalChickWeights.extend(i)
 
         print()
         alertTime = 0.0
@@ -116,7 +117,7 @@ for time in range(0,9000):#35712):
 
         if agent.isEmpty() == False:
             if agent.isHumanPresence():
-                nextActiveAgents.append(agent.flush(agentDB, IDToAgent, scenario.getHabitatVector(), 
+                nextActiveAgents.extend(agent.flush(agentDB, IDToAgent, scenario.getHabitatVector(), 
                     scenario.getMapWidth()));
                 continue
             if foragingTime == True:
@@ -130,22 +131,16 @@ for time in range(0,9000):#35712):
                 forageTime += (TIME.time() - t)
 
                 t = TIME.time()
-                nextActiveAgents.append(agent.move(agentDB, IDToAgent, scenario.getHabitatVector(), 
+                nextActiveAgents.extend(agent.move(agentDB, IDToAgent, scenario.getHabitatVector(), 
                     scenario.getEnergyVector(), scenario.getMapWidth()))
                 moveTime += (TIME.time() - t)
             else:
-                agent.rest()
-                nextActiveAgents.append(agent)
-                """
                 if agent.chickAtNest() == True:
-                    t = TIME.time()
                     agent.rest()
                     nextActiveAgents.append(agent)
-                    restTime += (TIME.time() - t)
                 else:
-                    t = TIME.time()
-                    nextActiveAgents.append(agent.findNearestNest(agentDB, IDToAgent, scenario.getHabitatVector(), scenario.getMapWidth()))
-                    nearestNestTime += (TIME.time() - t)"""
+                    nextActiveAgents.extend(agent.findNearestNest(agentDB, IDToAgent, scenario.getHabitatVector(), scenario.getMapWidth()))
+
     if nestMakingTime == True and time > 9000:
         nestMakingTime = False; print("Nest making time has ended.")
     if breedingTime == True and time > 20000:
