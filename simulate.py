@@ -127,7 +127,7 @@ for time in range(0,9000):#35712):
                 alertTime += (TIME.time() - t)
 
                 t = TIME.time()
-                agent.forage(scenario.getEnergyVector(), alert)
+                agent.forage(scenario.getEnergyVector(), alert, time)
                 forageTime += (TIME.time() - t)
 
                 t = TIME.time()
