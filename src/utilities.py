@@ -107,8 +107,9 @@ def readScenario(Scenario, file):
 	initialAdults = math.ceil(np.random.normal(int(lines[1].split()[1]),int(lines[2].split()[1]),1))
 	energyVector = eval(lines[3].split()[1])
 	anthro = int(lines[4].split()[1])
+	humanExclosureRadius = int(lines[5].split()[1])
 
-	return Scenario(scenarioMap, anthro, habitat, mapWidth, initialAdults, energyVector)
+	return Scenario(scenarioMap, anthro, habitat, mapWidth, initialAdults, energyVector, humanExclosureRadius)
 
 def setMapWidth(scenarioMap):
 	"""Set the map width attribute based on the width of the environment."""
