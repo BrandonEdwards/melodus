@@ -103,25 +103,6 @@ class Agent(object):
 		of the simulation when nesting occurs, that assists in moving chicks in the
 		direction of the nearest nest.
 		"""
-
-		""" OLD CODE IS HERE
-		moveChoices = util.createMapMatrix(self.agentID, 200, mapWidth)
-		moveChoices = [i for i in moveChoices if habitatVector[i] > -1]
-		newAgentID = -1
-		for ID in moveChoices:
-			if agentDB[IDToAgent[ID]].nestInfo != None:
-				newAgentID = ID
-				break
-
-		if (newAgentID > -1):
-			# print("Found nest at ", agentDB[IDToAgent[newAgentID]].getAgentID())
-			agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
-			self.chickWeight = list()
-			return agentDB[IDToAgent[newAgentID]]
-		else:
-			# print("No nearby nest found")
-			return self"""
-
 		newAgentLocationList = list()
 		weightToDelete = list()
 		nestLocationToDelete = list()
