@@ -10,6 +10,7 @@
 from .nest import Nest
 import numpy as np
 import random
+import math
 import src.utilities as util
 
 class Agent(object):
@@ -177,7 +178,7 @@ class Agent(object):
 
 		return newAgentLocationList
 
-	def forage(self, energyVector, alert):
+	def forage(self, energyVector, alert, time):
 		"""Increase weight of chicks in given agent based on habitat type.
 
 		Keyword arguments:
@@ -188,7 +189,9 @@ class Agent(object):
 		vector by full amount. Get habitat type energy multiplier by indexing energyVector
 		with habitat type.
 		"""
-		base = 0.012
+
+		day = time / 288
+		base = 0.014 * (-1/3*math.cos((1/9.55)*day - (7*math.pi/5)) + 2/3)
 		if len(self.chickWeight) > 0:
 			if alert == False:
 				#multiply all elements in chick energy by energy gain
