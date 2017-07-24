@@ -37,13 +37,7 @@ totalAdults = scenario.getInitialAdults(); print("Initial adults = ", totalAdult
 chickWeightData = pd.DataFrame(np.zeros(0, dtype=[('Day', int), ('Num.Chicks', int),
     ('Weight', str), ('Mean.Weight', float)]))
 
-#Change these later
 elapsedTime = 0.0
-alertTime = 0.0
-forageTime = 0.0
-moveTime = 0.0
-restTime = 0.0
-nearestNestTime = 0.0
 nestMakingTime = True
 #assume 50/50 split of males and females
 availableNests = int(totalAdults / 2)
@@ -64,25 +58,13 @@ for time in range(0,9000):#35712):
         # Delete these later
         print("Current day is ", day)
         print(thread,"- It took ", elapsedTime, " seconds for the previous day.")
-        """
-        print("Alert time: ", alertTime)
-        print("Forage time: ", forageTime)
-        print("Move time: ", moveTime)
-        print("Rest Time: ", restTime)
-        print("Nearest Nest Time: ", nearestNestTime)
-        print("Current chick weights are as follows:")
-        """
+
         for agent in nextActiveAgents:
             print(agent.getChickWeights())
             for i in agent.getChickWeights():
                 totalChickWeights.extend(i)
 
         print()
-        alertTime = 0.0
-        forageTime = 0.0
-        moveTime = 0.0
-        restTime = 0.0
-        nearestNestTime = 0.0
         elapsedTime = 0.0
         if (time > 0):
             io.updateChickWeight(day, totalChickWeights, scenario.getAnthroLevel())
@@ -121,19 +103,13 @@ for time in range(0,9000):#35712):
                     scenario.getMapWidth()));
                 continue
             if foragingTime == True:
-                t = TIME.time()
                 alert = agent.humanInAlertDistance(agentDB, IDToAgent, scenario.getHabitatVector(),
                         scenario.getMapWidth())
-                alertTime += (TIME.time() - t)
 
-                t = TIME.time()
                 agent.forage(scenario.getEnergyVector(), alert, time)
-                forageTime += (TIME.time() - t)
 
-                t = TIME.time()
                 nextActiveAgents.extend(agent.move(agentDB, IDToAgent, scenario.getHabitatVector(), 
                     scenario.getEnergyVector(), scenario.getMapWidth()))
-                moveTime += (TIME.time() - t)
             else:
                 if agent.chickAtNest() == True:
                     agent.rest()
