@@ -153,12 +153,14 @@ class Agent(object):
 
 			if moveLocationIndex == -1:
 				newAgentLocationList.append(self)
+				continue
 
 			newAgentID = moveChoices[moveLocationIndex]
 
 			if newAgentID == self.agentID:
 				#print("No movement")
 				newAgentLocationList.append(self)
+				continue
 			
 			agentDB[IDToAgent[newAgentID]].chickWeight.append(self.chickWeight[i])
 			weightToDelete.append(self.chickWeight[i])
@@ -299,12 +301,14 @@ class Agent(object):
 
 			if moveLocationIndex == -1:
 				newAgentLocationList.append(self)
+				continue
 
 			newAgentID = moveChoices[moveLocationIndex]
 
 			if newAgentID == self.agentID:
 				#print("No movement")
 				newAgentLocationList.append(self)
+				continue
 			
 			agentDB[IDToAgent[newAgentID]].chickWeight.append(self.chickWeight[i])
 			weightToDelete.append(self.chickWeight[i])
