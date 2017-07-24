@@ -118,8 +118,6 @@ class Agent(object):
 
 			newAgentLocationList.append(agentDB[IDToAgent[newAgentID]])	
 
-			print("Moved chicks to nest at agent ", newAgentID)
-
 		for i in weightToDelete:
 			self.chickWeight.remove(i)
 
