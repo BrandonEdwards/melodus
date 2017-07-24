@@ -30,6 +30,7 @@ class Agent(object):
 		self.predatorPresence = False
 		self.nestInfo = None
 		self.chickWeight = list()
+		self.nestLocation = list()
 		self.closestNest = 0
 
 	def attemptNest(self, availableNests, time):
@@ -68,9 +69,8 @@ class Agent(object):
 		"""
 		weights = self.nestInfo.hatch(time)
 		if len(weights) > 0:
-			for weight in weights:
-				self.chickWeight.append(weight)
-				
+			self.chickWeight.append(weights)
+			self.nestLocation.append(self.agentID)
 			print("Chicks successfully hatched in agent ", self.agentID, " with weights: ", self.chickWeight)
 			return True
 
@@ -103,6 +103,8 @@ class Agent(object):
 		of the simulation when nesting occurs, that assists in moving chicks in the
 		direction of the nearest nest.
 		"""
+
+		""" OLD CODE IS HERE
 		moveChoices = util.createMapMatrix(self.agentID, 200, mapWidth)
 		moveChoices = [i for i in moveChoices if habitatVector[i] > -1]
 		newAgentID = -1
@@ -118,7 +120,31 @@ class Agent(object):
 			return agentDB[IDToAgent[newAgentID]]
 		else:
 			# print("No nearby nest found")
-			return self
+			return self"""
+
+		newAgentLocationList = list()
+		weightToDelete = list()
+		nestLocationToDelete = list()
+		for i in range(0, len(self.chickWeight)):
+			newAgentID = self.nestLocation[i]
+
+			agentDB[IDToAgent[newAgentID]].chickWeight.append(self.chickWeight[i])
+			weightToDelete.append(self.chickWeight[i])
+
+			agentDB[IDToAgent[newAgentID]].nestLocation.append(self.nestLocation[i])
+			nestLocationToDelete.append(self.nestLocation[i])
+
+			newAgentLocationList.append(agentDB[IDToAgent[newAgentID]])	
+
+			print("Moved chicks to nest at agent ", newAgentID)
+
+		for i in weightToDelete:
+			self.chickWeight.remove(i)
+
+		for i in nestLocationToDelete:
+			self.nestLocation.remove(i)
+
+		return newAgentLocationList		
 
 	def flush(self, agentDB, IDToAgent, habitatVector, mapWidth):
 		"""If humans are present in cell, move chicks away from humans."""
@@ -133,27 +159,42 @@ class Agent(object):
 		#Normalize the movement choice energy vectors
 		probabilities = [float(i)/sum(moveChoicesHumans) for i in moveChoicesHumans]
 
-		#Pull from multinomial distribution and get index of the success (i.e. new agent).
-		moveLocationArray = np.random.multinomial(1, probabilities, size = 1)
-		moveLocationIndex = -1
-		for i in range(0, len(moveLocationArray[0])):
-			if moveLocationArray[0][i] == 1:
-				moveLocationIndex = i
-				break
+		newAgentLocationList = list()
+		weightToDelete = list()
+		nestLocationToDelete = list()
+		for i in range(0, len(self.chickWeight)):
+			#Pull from multinomial distribution and get index of the success (i.e. new agent).
+			moveLocationArray = np.random.multinomial(1, probabilities, size = 1)
+			moveLocationIndex = -1
+			for j in range(0, len(moveLocationArray[0])):
+				if moveLocationArray[0][j] == 1:
+					moveLocationIndex = j
+					break
 
-		if moveLocationIndex == -1:
-			return self
+			if moveLocationIndex == -1:
+				newAgentLocationList.append(self)
 
-		newAgentID = moveChoices[moveLocationIndex]
+			newAgentID = moveChoices[moveLocationIndex]
 
-		if newAgentID == self.agentID:
-			#print("No movement")
-			return self
-		
-		agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
-		self.chickWeight = list()
+			if newAgentID == self.agentID:
+				#print("No movement")
+				newAgentLocationList.append(self)
+			
+			agentDB[IDToAgent[newAgentID]].chickWeight.append(self.chickWeight[i])
+			weightToDelete.append(self.chickWeight[i])
 
-		return agentDB[IDToAgent[newAgentID]]
+			agentDB[IDToAgent[newAgentID]].nestLocation.append(self.nestLocation[i])
+			nestLocationToDelete.append(self.nestLocation[i])
+
+			newAgentLocationList.append(agentDB[IDToAgent[newAgentID]])
+
+		for i in weightToDelete:
+			self.chickWeight.remove(i)
+
+		for i in nestLocationToDelete:
+			self.nestLocation.remove(i)
+
+		return newAgentLocationList
 
 	def forage(self, energyVector, alert):
 		"""Increase weight of chicks in given agent based on habitat type.
@@ -177,6 +218,10 @@ class Agent(object):
 	def getAgentID(self):
 		"""Return agent ID (integer) of the given agent."""
 		return self.agentID
+
+	def getChickWeights(self):
+		"""Return the list of chicks weights contained in the agent."""
+		return self.chickWeight
 
 	def getHabitatType(self):
 		"""Return habitat type (integer) of the given agent."""
@@ -258,27 +303,42 @@ class Agent(object):
 		#Normalize the movement choice energy vectors
 		probabilities = [float(i)/sum(moveChoicesEnergy) for i in moveChoicesEnergy]
 
-		#Pull from multinomial distribution and get index of the success (i.e. new agent).
-		moveLocationArray = np.random.multinomial(1, probabilities, size = 1)
-		moveLocationIndex = -1
-		for i in range(0, len(moveLocationArray[0])):
-			if moveLocationArray[0][i] == 1:
-				moveLocationIndex = i
-				break
+		newAgentLocationList = list()
+		weightToDelete = list()
+		nestLocationToDelete = list()
+		for i in range(0, len(self.chickWeight)):
+			#Pull from multinomial distribution and get index of the success (i.e. new agent).
+			moveLocationArray = np.random.multinomial(1, probabilities, size = 1)
+			moveLocationIndex = -1
+			for j in range(0, len(moveLocationArray[0])):
+				if moveLocationArray[0][j] == 1:
+					moveLocationIndex = j
+					break
 
-		if moveLocationIndex == -1:
-			return self
+			if moveLocationIndex == -1:
+				newAgentLocationList.append(self)
 
-		newAgentID = moveChoices[moveLocationIndex]
+			newAgentID = moveChoices[moveLocationIndex]
 
-		if newAgentID == self.agentID:
-			#print("No movement")
-			return self
-		
-		agentDB[IDToAgent[newAgentID]].chickWeight.extend(self.chickWeight)
-		self.chickWeight = list()
+			if newAgentID == self.agentID:
+				#print("No movement")
+				newAgentLocationList.append(self)
+			
+			agentDB[IDToAgent[newAgentID]].chickWeight.append(self.chickWeight[i])
+			weightToDelete.append(self.chickWeight[i])
 
-		return agentDB[IDToAgent[newAgentID]]
+			agentDB[IDToAgent[newAgentID]].nestLocation.append(self.nestLocation[i])
+			nestLocationToDelete.append(self.nestLocation[i])
+			
+			newAgentLocationList.append(agentDB[IDToAgent[newAgentID]])
+
+		for i in weightToDelete:
+			self.chickWeight.remove(i)
+
+		for i in nestLocationToDelete:
+			self.nestLocation.remove(i)
+
+		return newAgentLocationList
 
 	def rest(self):
 		"""Check for humans in a reduced alert distance"""
