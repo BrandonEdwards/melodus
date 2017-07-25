@@ -14,7 +14,8 @@ import src.utilities as util
 import math
 
 class Scenario(object):
-	def __init__(self, scenarioMap, anthro, habitat, mapWidth, initialAdults, energyVector):
+	def __init__(self, scenarioMap, anthro, habitat, mapWidth, 
+		initialAdults, energyVector, humanExclosureRadius):
 		"""Create a new Scenario object from parameters read from file."""
 		self.scenarioMap = scenarioMap
 		self.anthro = anthro
@@ -22,6 +23,7 @@ class Scenario(object):
 		self.mapWidth = mapWidth
 		self.initialAdults = initialAdults
 		self.energyVector = energyVector
+		self.humanExclosureRadius = humanExclosureRadius
 		self.nestHabitatList = set()
 
 	def createAgentDB(self):
@@ -58,6 +60,10 @@ class Scenario(object):
 	def getHabitatVector(self):
 		"""Return list of habitat types for each environment cell (agent)."""
 		return self.habitat
+
+	def getHumanExclosureRadius(self):
+		"""Return the radius of the desired human exclosures around a nest."""
+		return self.humanExclosureRadius
 
 	def getInitialAdults(self):
 		"""Return total number of adults that start the simulation."""
