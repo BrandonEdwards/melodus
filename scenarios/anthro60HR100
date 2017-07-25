@@ -1,0 +1,6 @@
+Initial_Map:					maps/SaubleUpperHalf.csv
+Initial_Adults_Mean:			6
+Initial_Adults_SD:				2
+Energy_Vector:					[0.0,0.0,1.0,1.0,0.5,0.75]
+Anthro_Level_%:					60
+Human_Exclosure_Radius:			100
