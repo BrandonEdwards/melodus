@@ -84,6 +84,14 @@ class Agent(object):
 		else:
 			return True
 
+	def createHumanExclosure(self, agentDB, IDToAgent, habitatVector, mapWidth, radius):
+		agentList = util.createMapMatrix(self.agentID, radius, mapWidth)
+
+		#Get rid of all move choices that are out of environment (if necessary)
+		agentList = [i for i in agentList if habitatVector[i] > -1]
+		for ID in agentList:
+			agentDB[IDToAgent[ID]].humanPresence = False
+
 	def findNearestNest(self, agentDB, IDToAgent, habitatVector, mapWidth):
 		"""Find location of nearest nest and move chicks to that agent.
 
