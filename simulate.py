@@ -86,6 +86,11 @@ for time in range(0,9000):#35712):
                 if agent.attemptNest(availableNests, time) == True:
                     availableNests -= 1
                     scenario.updateNestingHabitat(agent.getAgentID())
+
+                    if (scenario.getHumanExclosureRadius() > 0):
+                        agent.createHumanExclosure(agentDB, IDToAgent, scenario.getHabitatVector(),
+                            scenario.getMapWidth(), scenario.getHumanExclosureRadius())
+
                     activeAgents.append(agent)
 
     for agent in activeAgents:
